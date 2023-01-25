@@ -1,0 +1,25 @@
+@use 'styles/mixins/_responsive';
+
+.layout {
+  $self: #{&};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @include responsive.after(772px) {
+    & {
+      flex-direction: row;
+    }
+  }
+}
+
+.main {
+  // border: 2px solid black; // FIXME 임시
+  width: 90%;
+  height: 100vh;
+  max-width: 40rem;
+  align-self: center;
+}
+
+.main_nav {
+}

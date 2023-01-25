@@ -24,6 +24,6 @@
     "**/*.tsx",
     "src/assets/svg/index.ts",
     "src/assets/svg/index.ts"
-, "src/components/layout/Layout.tsxx", "src/components/layout/Layout.tsxsx", "src/pages/api/new-meetup.ts", "src/pages/api/new-meetup.ts", "src/components/ui/Card.tsx", "src/components/ui/Card.tsx"  ],
+, "src/components/layout/Layout.tsxx", "src/components/layout/Layout.tsxsx", "src/pages/api/new-meetup.ts", "src/pages/api/new-meetup.ts", "src/components/shared/Card.tsx.tsxsrc/components/shared/Card.tsxCard.tsx"  ],
   "exclude": ["node_modules"]
 }

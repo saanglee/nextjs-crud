@@ -1,0 +1,117 @@
+@use 'styles/mixins/responsive';
+@use 'styles/constants/colors';
+
+.main-nav {
+  $self: #{&};
+  width: 100%;
+  height: 50px;
+  background-color: colors.$WHITE;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+
+  @include responsive.between(772px, 1264px) {
+    & {
+      position: static;
+      width: 110px;
+      height: 100%;
+      flex-direction: column;
+    }
+  }
+
+  @include responsive.after(1265px) {
+    & {
+      position: static;
+      width: 300px;
+      height: 100%;
+      flex-direction: column;
+    }
+  }
+  :global {
+    #{$self}__logo {
+      display: none;
+      @include responsive.between(772px, 1264px) {
+        & {
+          display: none;
+          padding: 30px 10px;
+        }
+      }
+
+      @include responsive.after(1265px) {
+        & {
+          display: block;
+          padding: 30px 10px;
+        }
+      }
+    }
+
+    #{$self}__logo-a {
+      @include responsive.after(772px) {
+        & {
+          font-size: 38px;
+          font-weight: 700;
+        }
+      }
+    }
+
+    #{$self}__ul {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      // padding: 10px 5px;
+
+      @include responsive.after(772px) {
+        & {
+          margin: 10px 0;
+          flex-direction: column;
+        }
+      }
+    }
+
+    #{$self}__li {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      @include responsive.between(772px, 1264px) {
+        & {
+          padding: 10px;
+          flex-direction: column;
+          align-items: center;
+          padding: 16px 0;
+        }
+      }
+
+      @include responsive.after(1265px) {
+        & {
+          padding: 12px 10px;
+          margin: 10px 0;
+          flex-direction: column;
+        }
+        span {
+          display: inline-block;
+          padding-left: 10px;
+        }
+      }
+    }
+
+    #{$self}__span {
+      display: none;
+      @include responsive.between(772px, 1264px) {
+        display: none;
+      }
+    }
+  }
+  a {
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: black;
+  }
+
+  a:hover,
+  a:active,
+  a.active {
+    color: rgb(255, 111, 111);
+  }
+}

@@ -1,0 +1,39 @@
+@use 'styles/constants/colors';
+@use 'styles/constants/sizes';
+
+/* stylelint-disable selector-class-pattern */
+.button {
+  margin: 5px;
+  color: #000;
+  background-color: #fff;
+  border: sizes.$BORDER;
+  cursor: pointer;
+
+  color: balck;
+  font-weight: bold;
+
+  &:hover {
+    color: #fff;
+    background-color: #000;
+  }
+}
+
+.md {
+  width: 160px;
+  height: 50px;
+  border-radius: sizes.$BORDER_RADIUS_SM;
+
+  font-size: 18px;
+
+  box-shadow: sizes.$BOX_SHADOW_SM;
+}
+
+.lg {
+  width: 250px;
+  height: 55px;
+  border-radius: sizes.$BORDER_RADIUS_SM;
+
+  font-size: 22px;
+
+  box-shadow: sizes.$BOX_SHADOW_SM;
+}

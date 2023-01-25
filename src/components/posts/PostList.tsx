@@ -1,5 +1,5 @@
 import PostItem from './PostItem';
-import classes from './MeetupList.module.css';
+import classes from './PostList.module.css';
 import { collection } from 'firebase/firestore/lite';
 
 const PostList = ({ meetups }: any) => {

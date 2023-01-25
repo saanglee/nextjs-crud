@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "incremental": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/assets/svg/index.ts",
+    "src/assets/svg/index.ts"
+, "src/components/layout/Layout.tsxx", "src/components/layout/Layout.tsxsx", "src/pages/api/new-meetup.ts", "src/pages/api/new-meetup.ts", "src/components/ui/Card.tsx", "src/components/ui/Card.tsx"  ],
+  "exclude": ["node_modules"]
+}

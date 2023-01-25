@@ -1,0 +1,47 @@
+@use 'styles/constants/colors';
+@use 'styles/constants/sizes';
+
+.form {
+  width: 100%;
+  padding: 20px 30px;
+}
+
+.control {
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+  margin: 20px 0;
+
+  label {
+    display: block;
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 0.5rem;
+    width: 160px;
+  }
+
+  input {
+    padding: 10px 15px;
+    height: 55px;
+  }
+
+  textarea {
+    padding: 20px 15px;
+  }
+
+  input,
+  textarea {
+    display: block;
+    font: inherit;
+    border-radius: 8px;
+    border: sizes.$BORDER;
+    width: 65%;
+    font-weight: bold;
+  }
+}
+
+.actions {
+  text-align: right;
+}

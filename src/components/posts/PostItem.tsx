@@ -1,12 +1,9 @@
 import Card from '../shared/Card';
 import classes from './PostItem.module.css';
 import { useRouter } from 'next/router';
-import { PostDetailProps } from './PostDetail';
 import { db } from '../../firebase/clientApp';
 import { doc, deleteDoc } from 'firebase/firestore/lite';
-import { useRef, useState } from 'react';
 import Image from 'next/image';
-import placeholder from '../../assets/placeholderImage.png';
 import Button from 'components/shared/Button';
 import { DeleteOutlined } from '@ant-design/icons';
 
@@ -16,7 +13,7 @@ const PostItem = ({ collectionId, id, date, image, title, address }: any) => {
     router.push(`/${id}`); // = Link Component
   };
 
-  const deleteMeetup = async (event: React.MouseEvent<HTMLButtonElement>, targetId: string) => {
+  const deletePost = async (event: React.MouseEvent<HTMLButtonElement>, targetId: string) => {
     if (window.confirm(`"${title}" 를 삭제하시겠습니까?`)) {
       event.preventDefault();
       const docRef = doc(db, 'myCollection', targetId);
@@ -51,7 +48,7 @@ const PostItem = ({ collectionId, id, date, image, title, address }: any) => {
         </div>
         <div className={classes.actions}>
           <Button text="SHOW MORE" size="lg" onClick={showDetailsHandler} />
-          <Button text="DELETE" size="lg" onClick={(event: any) => deleteMeetup(event, collectionId)}>
+          <Button text="DELETE" size="lg" onClick={(event: any) => deletePost(event, collectionId)}>
             <DeleteOutlined />
           </Button>
         </div>

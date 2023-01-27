@@ -27,10 +27,11 @@ export const getStaticPaths = async () => {
   const querySnapshot = await getDocs(collection(db, 'myCollection'));
 
   const paths = querySnapshot.docs.map((doc) => {
+    console.log(doc);
     return {
       params: {
         collectionId: doc.id,
-        meetupId: doc.data().id,
+        postId: doc.data().id,
       },
     };
   });
@@ -41,10 +42,10 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async (context: { params: { meetupId: string } }) => {
-  const { meetupId } = context.params;
+export const getStaticProps = async (context: { params: { postId: string } }) => {
+  const { postId } = context.params;
 
-  const q = query(collection(db, 'myCollection'), where('id', '==', meetupId));
+  const q = query(collection(db, 'myCollection'), where('id', '==', postId));
 
   const querySnapshot = await getDocs(q);
 

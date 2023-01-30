@@ -20,7 +20,7 @@ const iconStyle = {
 
 const MainNavigation = () => {
   const [user] = useIdToken(auth);
-  console.log(user?.email, user?.uid);
+  console.log('MainNavigation - user: ', user?.email, user?.uid);
 
   const logout = () => {
     signOut(auth).then(() => {

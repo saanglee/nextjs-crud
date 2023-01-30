@@ -28,18 +28,21 @@ const LoginForm = ({ onAddUser }: LoginFormProps) => {
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // client side
+    // only client side
     setPersistence(auth, browserSessionPersistence).then(() => {
       return signInWithEmailAndPassword(loginForm.email, loginForm.password);
     });
-    loginHandler(userData);
+
+    // nextjs server
+    // const testCredential = await signInWithEmailAndPassword(loginForm.email, loginForm.password);
+    // console.log('LoginForm - test:', testCredential);
   };
 
   useEffect(() => {
     if (userCredential) {
       router.push('/');
     }
-    if (error) console.log(error.message);
+    if (error) console.log('LoginForm - error.message: ', error.message);
   }, [handleSubmit]);
 
   const userData = { refreshToken: userCredential?.user.refreshToken, uid: userCredential?.user.uid };

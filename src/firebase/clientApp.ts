@@ -1,6 +1,7 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { connectAuthEmulator, getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore/lite';
+import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
 
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -15,5 +16,8 @@ export const firebaseConfig = {
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const db = getFirestore(app);
 const auth = getAuth(app);
+const functions = getFunctions(app);
+connectFunctionsEmulator(functions, 'localhost', 5001);
+connectAuthEmulator(auth, 'http://localhost:9099');
 
 export { app, auth, db };

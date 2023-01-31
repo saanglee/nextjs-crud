@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import classes from './PostDetail.module.scss';
 
-import { auth } from '../../firebase/clientApp';
+import { auth } from '../../firebase/firebaseClient';
 import { useIdToken } from 'react-firebase-hooks/auth';
 
 export interface PostDetailProps {

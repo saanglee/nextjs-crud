@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { db } from '../../firebase/clientApp';
+import { db } from '../../firebase/firebaseClient';
 import PostDetail from '../../components/posts/PostDetail';
 
 import { collection, getDocs, query, where } from 'firebase/firestore/lite';

@@ -2,9 +2,7 @@ import Link from 'next/link';
 import classNames from 'classnames/bind';
 import styles from './MainNavigation.module.scss';
 import { HomeOutlined, PlusCircleOutlined, SearchOutlined, LoginOutlined, UserOutlined } from '@ant-design/icons';
-import { userState } from 'store/auth';
-import { useRecoilState } from 'recoil';
-import { auth } from '../../firebase/clientApp';
+import { auth } from '../../firebase/firebaseClient';
 import { useIdToken } from 'react-firebase-hooks/auth';
 import { signOut } from 'firebase/auth';
 

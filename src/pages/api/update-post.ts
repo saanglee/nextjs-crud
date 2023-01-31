@@ -1,5 +1,5 @@
 // POST /api/new-post
-import { db } from '../../firebase/clientApp';
+import { db } from '../../firebase/firebaseClient';
 import { doc, setDoc, GeoPoint, updateDoc } from 'firebase/firestore/lite';
 import { NextApiRequest, NextApiResponse } from 'next';
 

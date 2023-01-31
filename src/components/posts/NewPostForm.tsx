@@ -2,7 +2,7 @@ import { useState } from 'react';
 import nextId from 'react-id-generator';
 import PostForm from 'components/shared/PostForm';
 
-import { auth } from '../../firebase/clientApp';
+import { auth } from '../../firebase/firebaseClient';
 import { useIdToken } from 'react-firebase-hooks/auth';
 
 const getStringDate = (date: Date) => {

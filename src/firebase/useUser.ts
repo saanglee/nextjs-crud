@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { auth } from './clientApp';
+import { auth } from './firebaseClient';
 import { removeUserCookie, setUserCookie, getUserFromCookie } from './userCookie';
 import { mapUserData } from './mapUserData';
 

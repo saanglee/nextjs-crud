@@ -1,7 +1,7 @@
 import Card from '../shared/Card';
 import classes from './PostItem.module.css';
 import { useRouter } from 'next/router';
-import { db } from '../../firebase/clientApp';
+import { db } from '../../firebase/firebaseClient';
 import { doc, deleteDoc } from 'firebase/firestore/lite';
 import Image from 'next/image';
 import Button from 'components/shared/Button';

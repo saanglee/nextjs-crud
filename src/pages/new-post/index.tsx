@@ -2,7 +2,7 @@ import React from 'react';
 import NewPostForm from '../../components/posts/NewPostForm';
 import { useRouter } from 'next/router';
 import { useIdToken } from 'react-firebase-hooks/auth';
-import { auth } from '../../firebase/clientApp';
+import { auth } from '../../firebase/firebaseClient';
 
 const NewMeepupPage = () => {
   const router = useRouter();

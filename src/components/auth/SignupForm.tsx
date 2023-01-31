@@ -3,7 +3,7 @@ import Card from 'components/shared/Card';
 import Button from 'components/shared/Button';
 import classes from './AuthForm.module.scss';
 import { useRouter } from 'next/router';
-import { auth } from '../../firebase/clientApp';
+import { auth } from '../../firebase/firebaseClient';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 
 interface SignupFormProps {

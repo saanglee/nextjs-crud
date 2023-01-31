@@ -1,6 +1,7 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
-import { connectAuthEmulator, getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore/lite';
+import * as firebaseClient from 'firebase/app';
+import { connectAuthEmulator, getAuth, setPersistence, browserSessionPersistence } from 'firebase/auth';
+import { getFirestore, setDoc } from 'firebase/firestore/lite';
 import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
 
 export const firebaseConfig = {
@@ -16,8 +17,14 @@ export const firebaseConfig = {
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const db = getFirestore(app);
 const auth = getAuth(app);
-const functions = getFunctions(app);
-connectFunctionsEmulator(functions, 'localhost', 5001);
-connectAuthEmulator(auth, 'http://localhost:9099');
+// const functions = getFunctions(app);
+// connectFunctionsEmulator(functions, 'localhost', 5001);
+// connectAuthEmulator(auth, 'http://localhost:9099');
 
-export { app, auth, db };
+// if (typeof window !== 'undefined' && !firebaseClient.getApps().length) {
+//   firebaseClient.initializeApp(firebaseConfig);
+//   // auth.setPersistence(auth.Persistence.SESSION);
+//   (window as any).firebase = firebaseClient;
+// }
+
+export { app, firebaseClient, auth, db };

@@ -3,7 +3,7 @@ import Card from 'components/shared/Card';
 import Button from 'components/shared/Button';
 import classes from './AuthForm.module.scss';
 import { useRouter } from 'next/router';
-import { auth } from '../../firebase/clientApp';
+import { auth } from '../../firebase/firebaseClient';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { FIREBASE_ERRORS } from '../../firebase/errors';
 import { browserSessionPersistence, setPersistence, signInWithEmailAndPassword } from 'firebase/auth';
@@ -34,18 +34,18 @@ const LoginForm = ({ onAddUser }: LoginFormProps) => {
     });
 
     // nextjs server
-    const credential = await signInWithEmailAndPasswordL(loginForm.email, loginForm.password);
-    console.log('LoginForm - test:', credential);
+    // const credential = await signInWithEmailAndPasswordL(loginForm.email, loginForm.password);
+    // console.log('LoginForm - test:', credential);
     // JWT토큰 생성
-    const idToken = await credential?.user.getIdToken();
+    // const idToken = await credential?.user.getIdToken();
     // Next.js의 로그인 함수 호출
-    await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ idToken }),
-    });
+    // await fetch('/api/auth/login', {
+    //   method: 'POST',
+    //   headers: { 'content-type': 'application/json' },
+    //   body: JSON.stringify({ idToken }),
+    // });
     // 완료되면, 인증 받은 사용자만 접근 가능한 페이지로 라우팅
-    await router.push('/'); // FIXME 임시
+    // await router.push('/'); // FIXME 임시
   };
 
   useEffect(() => {

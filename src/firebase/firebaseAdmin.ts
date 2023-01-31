@@ -1,9 +1,17 @@
-import { initializeApp } from 'firebase-admin/app';
-import { getAuth } from 'firebase-admin/auth';
+import * as admin from 'firebase-admin';
+import serviceAccount from './serviceAccount.json';
 
-// @ts-ignore
-const firebaseApp = global.firebaseApp ?? initializeApp();
-// @ts-ignore
-global.firebaseApp = firebaseApp;
+const firebaseAdminConfig = {
+  privateKey: serviceAccount.private_key,
+  clientEmail: serviceAccount.client_email,
+  projectId: serviceAccount.project_id,
+};
 
-export const firebaseAuth = getAuth(firebaseApp);
+if (!admin.app.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(firebaseAdminConfig),
+    databaseURL: `https://${serviceAccount.project_id}.firebaseid.com`,
+  });
+}
+
+export { admin };

@@ -1,4 +1,5 @@
 import * as admin from 'firebase-admin';
+import { ServiceAccount } from 'firebase-admin';
 import serviceAccount from './serviceAccount.json';
 
 const firebaseAdminConfig = {
@@ -6,12 +7,12 @@ const firebaseAdminConfig = {
   clientEmail: serviceAccount.client_email,
   projectId: serviceAccount.project_id,
 };
-
-if (!admin.app.length) {
+if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(firebaseAdminConfig),
-    databaseURL: `https://${serviceAccount.project_id}.firebaseid.com`,
+    databaseURL: 'https://test-e2e5c-default-rtdb.asia-southeast1.firebasedatabase.app',
   });
 }
 
 export { admin };
+// `https://${serviceAccount.project_id}.firebaseio.com`,

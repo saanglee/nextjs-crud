@@ -3,10 +3,11 @@ import NewPostForm from '../../components/posts/NewPostForm';
 import { useRouter } from 'next/router';
 import { useIdToken } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase/firebaseClient';
+import { useAuth } from 'store/authProvider';
 
-const NewMeepupPage = () => {
+const NewPostPage = () => {
+  const { user } = useAuth();
   const router = useRouter();
-  const [user] = useIdToken(auth);
   const uid = user?.uid as string;
 
   const addPostHandler = async (enteredPostData: any) => {
@@ -28,7 +29,8 @@ const NewMeepupPage = () => {
     return enteredPostData;
   };
 
+  if (!user) return <div> 로그인을 해주세요! 로그인 페이지로 가기</div>;
   return <NewPostForm onAddPost={addPostHandler} />;
 };
 
-export default NewMeepupPage;
+export default NewPostPage;

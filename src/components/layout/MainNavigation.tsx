@@ -13,12 +13,8 @@ const iconStyle = {
   paddingRight: 20,
 };
 
-// firebase:authUser:AIzaSyDjFy4PGbLxPVE6dYHzFimyyoPm7MCr9jU
-// const accessToken = typeof window !== 'undefined' ? sessionStorage.getItem('accessToken') : null;
-
 const MainNavigation = () => {
   const [user] = useIdToken(auth);
-  console.log('MainNavigation - user: ', user?.email, user?.uid);
 
   const logout = () => {
     signOut(auth).then(() => {
@@ -67,12 +63,19 @@ const MainNavigation = () => {
           </button>
         </div>
       ) : (
-        <button className="main-nav__li">
+        <div
+          className="main-nav__login-box"
+          style={{
+            border: '1px solid red',
+            fontWeight: 'bold',
+            marginTop: '0.5rem',
+          }}
+        >
           <Link href="/login">
             <LoginOutlined style={iconStyle} />
-            <span className="main-nav__span">LOG IN</span>
+            <span className="main-nav__login-box__span">LOG IN</span>
           </Link>
-        </button>
+        </div>
       )}
     </nav>
   );

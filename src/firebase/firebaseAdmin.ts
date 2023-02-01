@@ -1,5 +1,4 @@
 import * as admin from 'firebase-admin';
-import { ServiceAccount } from 'firebase-admin';
 import serviceAccount from './serviceAccount.json';
 
 const firebaseAdminConfig = {
@@ -15,4 +14,3 @@ if (!admin.apps.length) {
 }
 
 export { admin };
-// `https://${serviceAccount.project_id}.firebaseio.com`,

@@ -4,7 +4,7 @@
 /* stylelint-disable selector-class-pattern */
 .button {
   margin: 5px;
-  color: #000;
+  color: colors.$BLACK;
   background-color: #fff;
   border: sizes.$BORDER;
   cursor: pointer;
@@ -14,7 +14,7 @@
 
   &:hover {
     color: #fff;
-    background-color: #000;
+    background-color: colors.$BLACK;
   }
 }
 

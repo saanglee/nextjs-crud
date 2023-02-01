@@ -6,24 +6,23 @@
   $self: #{&};
   width: 100%;
   height: 50px;
-  background-color: colors.$WHITE;
+  background-color: colors.$BACKGROUND;
   display: flex;
   position: fixed;
   bottom: 0;
 
-  @include responsive.between(772px, 1264px) {
+  @include responsive.after(772px) {
     & {
       width: 110px;
-      height: 100vh;
+      height: 90vh;
       flex-direction: column;
+      top: 0;
     }
   }
 
   @include responsive.after(1265px) {
     & {
       width: 310px;
-      height: 100vh;
-      flex-direction: column;
       padding-right: 20px;
     }
   }
@@ -114,6 +113,30 @@
         }
         .profile__span {
           display: none;
+
+        }
+      }
+
+      @include responsive.after(1265px) {
+        & {
+          display: block;
+        }
+        .profile__span {
+          font-size: 22px;
+        }
+      }
+    }
+
+    #{self}__login-box{
+      border: 1px solid red;
+    }
+
+
+    #{self}__login-box__span{
+      display: none;
+      @include responsive.between(772px, 1264px) {
+        & {
+          display: none;
         }
       }
 
@@ -123,11 +146,13 @@
         }
       }
     }
+
+
   }
   a {
     text-decoration: none;
     font-size: 1.5rem;
-    color: black;
+    color: colors.$BLACK;
   }
 
   a:hover,
@@ -135,4 +160,10 @@
   a.active {
     color: rgb(255, 111, 111);
   }
+}
+
+.main-nav__login-box{
+border: 1px solid red;
+width: 100px;
+height:100px;
 }

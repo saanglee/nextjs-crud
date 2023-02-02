@@ -8,7 +8,7 @@ const NewPostPage = () => {
   const router = useRouter();
   const uid = user?.uid as string;
 
-  const addPostHandler = async (enteredPostData: any) => {
+  const addPostHandler = async (enteredPostData: any): Promise<any> => {
     try {
       const response = await fetch('/api/new-post', {
         method: 'POST',

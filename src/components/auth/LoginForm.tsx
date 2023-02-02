@@ -14,7 +14,7 @@ const LoginForm = () => {
     email: '',
     password: '',
   });
-  const [signInWithEmailAndPasswordL, userCredential, loading, authError] = useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, userCredential, loading, authError] = useSignInWithEmailAndPassword(auth);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm({
@@ -22,10 +22,10 @@ const LoginForm = () => {
       [event.currentTarget.name]: event.currentTarget.value,
     });
   };
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     setPersistence(auth, browserSessionPersistence).then(() => {
-      return signInWithEmailAndPasswordL(loginForm.email, loginForm.password);
+      return signInWithEmailAndPassword(loginForm.email, loginForm.password);
     });
   };
 

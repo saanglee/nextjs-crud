@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { auth } from '../../firebase/firebaseClient';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { FIREBASE_ERRORS } from '../../firebase/errors';
+import { UserCredential } from 'firebase/auth';
 
 interface SignupFormProps {
   isSignUp?: boolean;
@@ -27,13 +28,13 @@ const SignupForm = () => {
   const [error, setError] = useState('');
   const [createUserWithEmailAndPassword, userCredential, loading, authError] = useCreateUserWithEmailAndPassword(auth);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSignupForm({
       ...signupForm,
       [event.currentTarget.name]: event.currentTarget.value,
     });
   };
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void | Promise<UserCredential | undefined> => {
     event.preventDefault();
     if (error) setError('');
     if (signupForm.password !== signupForm.confirmPassword) return setError('동일한 비밀번호를 입력해주세요.');
@@ -50,6 +51,7 @@ const SignupForm = () => {
 
   return (
     <div>
+      w
       <Card size="sm" date="SIGN UP">
         <form className={classes.login__form} onSubmit={handleSubmit}>
           <div className={classes.control}>

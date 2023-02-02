@@ -53,7 +53,7 @@ const PostDetail = ({ collectionId, id, date, image, title, address, description
     setLocalContent(contents);
   };
 
-  const updatePostHandler = async (updatedPostData: any) => {
+  const updatePostHandler = async (updatedPostData: any): Promise<any> => {
     try {
       const response = await fetch('/api/update-post', {
         method: 'POST',

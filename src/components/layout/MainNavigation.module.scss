@@ -6,61 +6,37 @@
   $self: #{&};
   width: 100%;
   height: 50px;
-  background-color: colors.$WHITE;
+  background-color: colors.$BACKGROUND;
+  margin-top: 30px;
+
   display: flex;
   position: fixed;
   bottom: 0;
 
-  @include responsive.between(772px, 1264px) {
+  @include responsive.after(772px) {
     & {
       width: 110px;
-      height: 100vh;
+      height: 90vh;
       flex-direction: column;
+      top: 0;
     }
   }
 
   @include responsive.after(1265px) {
     & {
       width: 310px;
-      height: 100vh;
-      flex-direction: column;
       padding-right: 20px;
     }
   }
+
   :global {
-    #{$self}__logo {
-      display: none;
-      @include responsive.between(772px, 1264px) {
-        & {
-          display: none;
-          padding: 30px 10px;
-        }
-      }
-
-      @include responsive.after(1265px) {
-        & {
-          display: block;
-          padding: 30px 10px;
-        }
-      }
-    }
-
-    #{$self}__logo-a {
-      @include responsive.after(772px) {
-        & {
-          font-size: 38px;
-          font-weight: 700;
-        }
-      }
-    }
-
-    #{$self}__ul {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    #{$self}__list {
+      // mobile
       width: 100%;
-      // padding: 10px 5px;
+      display: flex;
+      justify-content: space-around;
 
+      // tablet, pc
       @include responsive.after(772px) {
         & {
           margin: 10px 0;
@@ -69,16 +45,15 @@
       }
     }
 
-    #{$self}__li {
+    #{$self}__item {
       width: 100%;
+
       display: flex;
-      flex-direction: row;
-      justify-content: center;
+
       @include responsive.between(772px, 1264px) {
         & {
-          flex-direction: column;
-          align-items: center;
           padding: 16px 0;
+          justify-content: center;
         }
       }
 
@@ -86,53 +61,110 @@
         & {
           padding: 12px 10px;
           margin: 10px 0;
-          flex-direction: column;
-        }
-        span {
-          display: inline-block;
+          align-items: center;
+
+          font-size: 24px;
+          color: colors.$BLACK;
         }
       }
     }
 
-    #{$self}__span {
+    #{$self}__item--pc {
       display: none;
-      @include responsive.between(772px, 1264px) {
-        display: none;
-      }
-    }
-
-    #{$self}__profile {
-      display: none;
-      position: absolute;
-      bottom: 0;
-      padding: 22px 10px;
-      // border: sizes.$BORDER;
-
-      @include responsive.between(772px, 1264px) {
-        & {
-          display: block;
-        }
-        .profile__span {
-          display: none;
-        }
-      }
 
       @include responsive.after(1265px) {
-        & {
-          display: block;
-        }
+        display: block;
       }
     }
   }
-  a {
-    text-decoration: none;
-    font-size: 1.5rem;
-    color: black;
+}
+
+.logo {
+  $self: #{&};
+  display: none;
+  margin: 20px 0;
+
+  @include responsive.after(772px) {
+    display: block;
   }
 
-  a:hover,
-  a:active,
-  a.active {
-    color: rgb(255, 111, 111);
+  :global {
+    #{$self}__text {
+      font-size: 36px;
+      font-weight: 700;
+      color: colors.$BLACK;
+    }
+
+    // #{$self}__text--tablet {
+    //   display: block;
+    //   font-size: 36px;
+    //   font-weight: 700;
+    //   color: colors.$BLACK;
+
+    //   @include responsive.between(772px, 1264px) {
+    //     display: none;
+    //   }
+    // }
+  }
+}
+
+.profile {
+  $self: #{&};
+  position: absolute;
+  bottom: 50px;
+  font-size: 20px;
+  padding: 0 20px;
+
+  display: none;
+
+  @include responsive.between(772px, 1264px) {
+    display: block;
+    text-align: center;
+  }
+
+  @include responsive.after(772px) {
+    display: block;
+  }
+
+  :global {
+    #{$self}__name {
+      font-size: 30px;
+      padding-right: 5px;
+    }
+  }
+}
+
+.auth-btn {
+  $self: #{&};
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+
+  @include responsive.after(772px) {
+    display: block;
+    width: 90%;
+    left: 0;
+    text-align: center;
+  }
+
+  @include responsive.after(1265px) {
+    left: 20px;
+    text-align: left;
+  }
+
+  :global {
+    #{$self}__text {
+      font-size: 24px;
+      font-weight: 400;
+      color: colors.$BLACK;
+      padding: 0 10px 0 0;
+
+      display: none;
+
+      @include responsive.after(1265px) {
+        display: inline-block;
+      }
+    }
   }
 }

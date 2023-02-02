@@ -1,55 +1,59 @@
-import { auth, db, firebaseConfig } from '../firebase/firebaseClient';
+import { GetServerSidePropsContext } from 'next';
+import PostList from 'components/posts/PostList';
 import { collection, getDocs } from 'firebase/firestore/lite';
-import PostList from '../components/posts/PostList';
-import { useIdToken } from 'react-firebase-hooks/auth';
-import { onAuthStateChanged } from 'firebase/auth';
-import { GetStaticPropsContext } from 'next';
+import { db } from '../firebase/firebaseClient';
+import { admin } from '../firebase/firebaseAdmin';
 import nookies from 'nookies';
 import { useAuth } from 'store/authProvider';
+import Card from 'components/shared/Card';
 
-// const uid = onAuthStateChanged(auth, (user) => {
-//   if (user) {
-//     console.log('user@@@', user, '======uid=====', user.uid);
-//     return user.uid;
-//   }
-// });
-
-const HomePage = (props: any) => {
+const HomePage = ({ userPosts }: any) => {
   const { user } = useAuth();
-  console.log('HomePage - user.uid: ', user ? user.uid : 'no user signed in');
-  const { staticItems } = props;
-  // const [user] = useIdToken(auth);
-  // const uid = user?.uid as string;
-
-  return <PostList posts={staticItems} />;
+  if (!user) return <div> 로그인을 해주세요! 로그인 페이지로 가기</div>;
+  if (!userPosts?.length)
+    return (
+      <div>
+        <Card>
+          <h1 style={{ margin: 50, fontSize: 25 }}>포스팅을 작성해보세요!</h1>
+        </Card>
+      </div>
+    );
+  return <PostList posts={userPosts} />;
 };
 
-export const getStaticProps = async (ctx: GetStaticPropsContext) => {
-  console.log('=======ctx=======', ctx);
-  console.log('================', auth.currentUser);
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  try {
+    const cookies = nookies.get(context);
+    const token = await admin.auth().verifyIdToken(cookies.token);
+    const { uid } = token;
+    const querySnapshot = await getDocs(collection(db, uid));
+    const userPosts = querySnapshot.docs.map((doc) => {
+      return {
+        collectionId: doc.id,
+        id: doc.data().id,
+        title: doc.data().title,
+        date: doc.data().date,
+        image: doc.data().image,
+        address: doc.data().address,
+        description: doc.data().description,
+      };
+    });
 
-  // const SESSION_KEY = `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`;
-  // const accessToken = typeof window !== 'undefined' ? sessionStorage.getItem(SESSION_KEY) : null;
-  // console.log('SESSION_KEY, accessToken', SESSION_KEY, ', ', accessToken);
-  const querySnapshot = await getDocs(collection(db, 'myCollection'));
-  // const querySnapshot = await getDocs(collection(db, uid));
-  const staticItems = querySnapshot.docs.map((doc) => {
     return {
-      collectionId: doc.id,
-      id: doc.data().id,
-      title: doc.data().title,
-      date: doc.data().date,
-      image: doc.data().image,
-      address: doc.data().address,
-      description: doc.data().description,
+      props: {
+        userPosts: JSON.parse(JSON.stringify(userPosts)),
+      },
     };
-  });
-
-  return {
-    props: {
-      staticItems: JSON.parse(JSON.stringify(staticItems)),
-    },
-  };
+  } catch (error) {
+    console.log('❗️ HomePage - getServerSideProps error: ', error);
+    return {
+      // redirect: {
+      //   permanent: false,
+      //   destination: '/login',
+      // },
+      props: {} as never,
+    };
+  }
 };
 
 export default HomePage;

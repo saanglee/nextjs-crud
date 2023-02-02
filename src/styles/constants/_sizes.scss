@@ -1,9 +1,14 @@
-$BORDER: 4px solid black;
+// @import 'constants/colors';
+
+$BLACK: #202124;
+
+$BORDER: 4px solid $BLACK;
+$BORDER_SM: 3px solid $BLACK;
 
 $BORDER_RADIUS_SM: 8px;
 $BORDER_RADIUS_MD: 10px;
 $BORDER_RADIUS_LG: 12px;
 
-$BOX_SHADOW_SM: 4px 4px black;
-$BOX_SHADOW_MD: 0 0 black, 12px 12px black;
-$BOX_SHADOW_LG: 0 0 black, 12px 12px black;
+$BOX_SHADOW_SM: 4px 4px $BLACK;
+$BOX_SHADOW_MD: 0 0 $BLACK, 12px 12px $BLACK;
+$BOX_SHADOW_LG: 0 0 $BLACK, 12px 12px $BLACK;

@@ -6,11 +6,10 @@ const firebaseAdminConfig = {
   clientEmail: serviceAccount.client_email,
   projectId: serviceAccount.project_id,
 };
-
-if (!admin.app.length) {
+if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(firebaseAdminConfig),
-    databaseURL: `https://${serviceAccount.project_id}.firebaseid.com`,
+    databaseURL: 'https://test-e2e5c-default-rtdb.asia-southeast1.firebasedatabase.app',
   });
 }
 

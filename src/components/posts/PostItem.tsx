@@ -6,19 +6,23 @@ import { doc, deleteDoc } from 'firebase/firestore/lite';
 import Image from 'next/image';
 import Button from 'components/shared/Button';
 import { DeleteOutlined } from '@ant-design/icons';
+import { useAuth } from 'store/authProvider';
 
 const PostItem = ({ collectionId, id, date, image, title, address }: any) => {
+  const { user } = useAuth();
+  const uid = user?.uid;
   const router = useRouter();
   const showDetailsHandler = () => {
     router.push(`/${id}`); // = Link Component
   };
 
   const deletePost = async (event: React.MouseEvent<HTMLButtonElement>, targetId: string) => {
-    if (window.confirm(`"${title}" 를 삭제하시겠습니까?`)) {
+    if (window.confirm(` ${targetId} "${title}" 를 삭제하시겠습니까?`)) {
       event.preventDefault();
-      const docRef = doc(db, 'myCollection', targetId);
+      const docRef = doc(db, uid as string, targetId);
+      console.log('docRef: ', docRef);
       await deleteDoc(docRef);
-      alert(`${targetId} deleted successfully`);
+      alert(`targetId:${targetId} deleted successfully`);
       refreshServerSide();
     }
   };

@@ -1,12 +1,15 @@
 @import 'base/reset';
 @import 'base/fonts';
-
+@import 'base/more';
+@import 'constants/colors';
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  background-color: $BACKGROUND;
+  color: $BLACK;
 }
 
 // h1,

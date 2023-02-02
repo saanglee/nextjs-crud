@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import { AuthProvider } from 'store/authProvider';
-import Layout from '../components/layout/Layout';
+import Layout from '../components/layout';
 
 import '../styles/index.scss';
 

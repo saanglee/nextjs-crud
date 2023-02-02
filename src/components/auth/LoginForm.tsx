@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Card from 'components/shared/Card';
 import Button from 'components/shared/Button';
-import classes from './AuthForm.module.scss';
+import classes from './index.module.scss';
 import { useRouter } from 'next/router';
 import { auth } from '../../firebase/firebaseClient';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { FIREBASE_ERRORS } from '../../firebase/errors';
-import { browserSessionPersistence, setPersistence, signInWithEmailAndPassword } from 'firebase/auth';
+import { browserSessionPersistence, setPersistence } from 'firebase/auth';
 
-interface LoginFormProps {
-  onAddUser?: (enteredUserData: any) => Promise<any>; // TODO 삭제
-}
-
-const LoginForm = ({ onAddUser }: LoginFormProps) => {
+const LoginForm = () => {
   const router = useRouter();
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: '',
   });
-  const [signInWithEmailAndPasswordL, userCredential, loading, error] = useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPasswordL, userCredential, loading, authError] = useSignInWithEmailAndPassword(auth);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm({
@@ -28,49 +24,17 @@ const LoginForm = ({ onAddUser }: LoginFormProps) => {
   };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // only client side
     setPersistence(auth, browserSessionPersistence).then(() => {
       return signInWithEmailAndPasswordL(loginForm.email, loginForm.password);
     });
-
-    // nextjs server
-    // const credential = await signInWithEmailAndPasswordL(loginForm.email, loginForm.password);
-    // console.log('LoginForm - test:', credential);
-    // JWT토큰 생성
-    // const idToken = await credential?.user.getIdToken();
-    // Next.js의 로그인 함수 호출
-    // await fetch('/api/auth/login', {
-    //   method: 'POST',
-    //   headers: { 'content-type': 'application/json' },
-    //   body: JSON.stringify({ idToken }),
-    // });
-    // 완료되면, 인증 받은 사용자만 접근 가능한 페이지로 라우팅
-    // await router.push('/'); // FIXME 임시
   };
 
   useEffect(() => {
     if (userCredential) {
       router.push('/');
     }
-    if (error) console.log('LoginForm - error.message: ', error.message);
+    if (authError) console.log('LoginForm - error.message: ', authError.message);
   }, [handleSubmit]);
-
-  const userData = { refreshToken: userCredential?.user.refreshToken, uid: userCredential?.user.uid };
-
-  const loginHandler = async (user: any) => {
-    try {
-      const response = await fetch('api/login', {
-        method: 'POST',
-        body: JSON.stringify(user),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div>
@@ -84,9 +48,11 @@ const LoginForm = ({ onAddUser }: LoginFormProps) => {
             <label htmlFor="password">Password </label>
             <input name="password" type="password" required onChange={handleInputChange} id="password" />
           </div>
-          <div>{FIREBASE_ERRORS[error?.message as keyof typeof FIREBASE_ERRORS]}</div>
+          <div className={classes.error_message}>
+            {FIREBASE_ERRORS[authError?.message as keyof typeof FIREBASE_ERRORS]}
+          </div>
           {loading ? (
-            <div>로그인 진행 중...</div>
+            <div className={classes.login__loading}>로그인 진행 중...</div>
           ) : (
             <>
               <div className={classes.login__button}>

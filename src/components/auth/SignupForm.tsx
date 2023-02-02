@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Card from 'components/shared/Card';
 import Button from 'components/shared/Button';
-import classes from './AuthForm.module.scss';
+import classes from './index.module.scss';
 import { useRouter } from 'next/router';
 import { auth } from '../../firebase/firebaseClient';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { FIREBASE_ERRORS } from '../../firebase/errors';
 
 interface SignupFormProps {
   isSignUp?: boolean;
@@ -35,14 +36,16 @@ const SignupForm = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (error) setError('');
-    if (signupForm.password !== signupForm.confirmPassword) {
-      setError('동일한 비밀번호를 입력해주세요.');
-    }
-    createUserWithEmailAndPassword(signupForm.email, signupForm.password);
+    if (signupForm.password !== signupForm.confirmPassword) return setError('동일한 비밀번호를 입력해주세요.');
+    return createUserWithEmailAndPassword(signupForm.email, signupForm.password);
   };
 
   if (userCredential) {
-    if (window.confirm(`OO님 안녕하세요, 로그인 페이지로 이동하시겠습니까?`)) router.push('/login');
+    alert(`${userCredential.user.email}님 안녕하세요! 홈으로 이동합니다.`);
+    router.push('/');
+  }
+  if (authError) {
+    console.log(authError);
   }
 
   return (
@@ -69,7 +72,10 @@ const SignupForm = () => {
               onChange={handleInputChange}
             />
           </div>
-          {error && <div> {error} </div>}
+          {error && <div className={classes.error_message}> {error} </div>}
+          <div className={classes.error_message}>
+            {FIREBASE_ERRORS[authError?.message as keyof typeof FIREBASE_ERRORS]}
+          </div>
           {loading ? (
             <div>회원가입 진행 중...</div>
           ) : (

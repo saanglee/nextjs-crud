@@ -12,19 +12,18 @@ export const AuthProvider = ({ children }: any) => {
   // listen for token changes
   // call setUser and write new token as a cookie
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    return getAuth().onIdTokenChanged(async (user) => {
+    return getAuth().onIdTokenChanged(async (user1) => {
       console.log(`token changed!`);
-      if (!user) {
+      if (!user1) {
         console.log(`no token found...`);
         setUser(null);
         nookies.set(null, 'token', '', { path: '/' });
         return;
       }
 
-      console.log(`updating token...`);
-      const token = await user.getIdToken();
-      setUser(user);
+      console.log(`updating token...`, user1);
+      setUser(user1);
+      const token = await user1.getIdToken();
       nookies.destroy(null, 'token');
       nookies.set(null, 'token', token, { path: '/' });
     });

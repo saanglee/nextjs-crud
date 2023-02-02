@@ -14,10 +14,11 @@
 }
 
 .main {
-  // border: 2px solid black; // FIXME 임시
+  margin-top: 30px;
   width: 90%;
   height: 100vh;
   max-width: 40rem;
+
   align-self: center;
   @include responsive.between(772px, 1264px) {
     & {

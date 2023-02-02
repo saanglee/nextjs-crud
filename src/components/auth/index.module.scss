@@ -1,7 +1,6 @@
 @use 'styles/constants/sizes';
 
-.login__form{
-
+.login__form {
   .control {
     margin-bottom: 0.5rem;
     display: flex;
@@ -9,7 +8,7 @@
     align-items: baseline;
     width: 100%;
     margin: 20px 0;
-  
+
     label {
       display: block;
       font-weight: bold;
@@ -17,7 +16,7 @@
       margin-bottom: 0.5rem;
       width: 160px;
     }
-    
+
     input {
       padding: 10px 15px;
       height: 55px;
@@ -30,9 +29,20 @@
     }
   }
 
-  .login__button{
-    width:100%;
+  .login__button {
+    width: 100%;
     text-align: center;
     margin: 20px 0 0 0;
   }
+  .login__loading{
+    text-align: center;
+    font-weight: 800;
+    font-size: 24px;
+  }
+}
+
+.error_message {
+  text-align: center;
+  color: red;
+  padding: 5px 0;
 }

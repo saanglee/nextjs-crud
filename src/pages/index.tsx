@@ -5,11 +5,19 @@ import { db } from '../firebase/firebaseClient';
 import { admin } from '../firebase/firebaseAdmin';
 import nookies from 'nookies';
 import { useAuth } from 'store/authProvider';
+import Card from 'components/shared/Card';
 
 const HomePage = ({ userPosts }: any) => {
   const { user } = useAuth();
   if (!user) return <div> 로그인을 해주세요! 로그인 페이지로 가기</div>;
-  if (!userPosts?.length) return <div> 포스팅을 작성해보세요! </div>;
+  if (!userPosts?.length)
+    return (
+      <div>
+        <Card>
+          <h1 style={{ margin: 50, fontSize: 25 }}>포스팅을 작성해보세요!</h1>
+        </Card>
+      </div>
+    );
   return <PostList posts={userPosts} />;
 };
 
@@ -29,7 +37,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
         address: doc.data().address,
         description: doc.data().description,
       };
-    }); 
+    });
 
     return {
       props: {

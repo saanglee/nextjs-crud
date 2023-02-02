@@ -5,77 +5,75 @@ import { HomeOutlined, PlusCircleOutlined, SearchOutlined, LoginOutlined, UserOu
 import { auth } from '../../firebase/firebaseClient';
 import { useIdToken } from 'react-firebase-hooks/auth';
 import { signOut } from 'firebase/auth';
+import { useRouter } from 'next/router';
 
 const cx = classNames.bind(styles);
 
 const iconStyle = {
+  color: '#000',
   fontSize: 28,
   paddingRight: 20,
 };
 
 const MainNavigation = () => {
+  const router = useRouter();
   const [user] = useIdToken(auth);
 
-  const logout = () => {
+  const handleLogoutClick = () => {
     signOut(auth).then(() => {
       alert('로그아웃!');
     });
+    router.push('/login');
   };
 
   return (
     <nav className={cx('main-nav')}>
-      <div className="main-nav__logo">
-        <Link href="/" className="main-nav__logo-a">
+      <div className={cx('logo')}>
+        <Link href="/" className="logo__text">
           React CRUD
         </Link>
+        {/* <Link href="/" className="logo__text--tablet">
+          R C
+        </Link> */}
       </div>
-      <ul className="main-nav__ul">
-        <li className="main-nav__li">
-          <Link href="/">
+      <ul className="main-nav__list">
+        <li>
+          <Link href="/" className="main-nav__item">
             <HomeOutlined style={iconStyle} />
-            <span className="main-nav__span">All Posts</span>
+            <span className="main-nav__item--pc">All Posts</span>
           </Link>
         </li>
-        <li className="main-nav__li">
-          <Link href="/new-post">
+        <li>
+          <Link href="/new-post" className="main-nav__item">
             <PlusCircleOutlined style={iconStyle} />
-            <span className="main-nav__span">Add New Post</span>
+            <span className="main-nav__item--pc">Add New Post</span>
           </Link>
         </li>
 
-        <li className="main-nav__li">
-          <Link href="/search">
+        <li>
+          <Link href="/search" className="main-nav__item">
             <SearchOutlined style={iconStyle} />
-            <span className="main-nav__span">Search</span>
+            <span className="main-nav__item--pc">Search</span>
           </Link>
         </li>
       </ul>
       {user ? (
-        <div className="main-nav__profile">
-          <UserOutlined style={iconStyle} />
-          <span className="profile__span">{user?.email?.split('@')[0]}</span>
-          <button className="main-nav__li" onClick={logout}>
-            <Link href="/login">
-              <LoginOutlined style={iconStyle} />
-
-              <span className="main-nav__span">LOG OUT</span>
-            </Link>
+        <>
+          <div className={cx('profile')}>
+            <UserOutlined style={iconStyle} />
+            <span className="profile__name">{user?.email?.split('@')[0]}</span>
+            <span>님</span>
+          </div>
+          <button className={cx('auth-btn')} onClick={handleLogoutClick}>
+            <span className="auth-btn__text">LOG OUT</span>
+            <LoginOutlined style={{ fontSize: 24 }} />
           </button>
-        </div>
+        </>
       ) : (
-        <div
-          className="main-nav__login-box"
-          style={{
-            border: '1px solid red',
-            fontWeight: 'bold',
-            marginTop: '0.5rem',
-          }}
-        >
-          <Link href="/login">
-            <LoginOutlined style={iconStyle} />
-            <span className="main-nav__login-box__span">LOG IN</span>
-          </Link>
-        </div>
+        <button className={cx('auth-btn')} onClick={() => router.push('/login')}>
+          <span className="auth-btn__text">LOG IN</span>
+          <LoginOutlined style={{ fontSize: 24 }} />
+        </button>
       )}
     </nav>
   );

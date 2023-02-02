@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, createContext } from 'react';
+import React, { useState, useEffect, useContext, createContext, useMemo } from 'react';
 import { getAuth, User } from 'firebase/auth';
 import nookies from 'nookies';
 
@@ -9,8 +9,6 @@ const AuthContext = createContext<{ user: User | null }>({
 export const AuthProvider = ({ children }: any) => {
   const [user, setUser] = useState<User | null>(null);
 
-  // listen for token changes
-  // call setUser and write new token as a cookie
   useEffect(() => {
     return getAuth().onIdTokenChanged(async (user1) => {
       console.log(`token changed!`);
@@ -28,17 +26,16 @@ export const AuthProvider = ({ children }: any) => {
       nookies.set(null, 'token', token, { path: '/' });
     });
   }, []);
-  // force refresh the token every 10 minutes
+
   useEffect(() => {
     const handler = setInterval(async () => {
       const { currentUser } = getAuth();
       if (currentUser) await currentUser.getIdToken(true);
     }, 10 * 60 * 1000);
-    // clean up setInverval
+
     return () => clearInterval(handler);
   }, []);
 
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
   return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>;
 };
 

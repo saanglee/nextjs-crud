@@ -7,7 +7,7 @@ const AuthContext = createContext<{ user: User | null }>({
 });
 
 export const AuthProvider = ({ children }: any) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [userState, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     return getAuth().onIdTokenChanged(async (user1) => {
@@ -36,7 +36,14 @@ export const AuthProvider = ({ children }: any) => {
     return () => clearInterval(handler);
   }, []);
 
-  return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>;
+  const user = useMemo(
+    () => ({
+      user: userState,
+    }),
+    [userState]
+  );
+
+  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {

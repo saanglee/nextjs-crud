@@ -14,9 +14,11 @@
 }
 
 .main {
+  margin-top: 30px;
   width: 90%;
   height: 100vh;
   max-width: 40rem;
+
   align-self: center;
   @include responsive.between(772px, 1264px) {
     & {

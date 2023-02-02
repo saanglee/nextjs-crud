@@ -1,0 +1,57 @@
+@use 'styles/mixins/responsive';
+@use 'styles/constants/colors';
+@use 'styles/constants/sizes';
+
+.mobile-header {
+  $self: #{&};
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px 5px;
+  @include responsive.after(772px) {
+    display: none;
+  }
+
+  :global {
+    #{$self}__auth {
+      display: flex;
+    }
+  }
+}
+
+.logo {
+  $self: #{&};
+
+  :global {
+    #{$self}__text {
+      font-size: 36px;
+      font-weight: 700;
+      color: colors.$BLACK;
+    }
+  }
+}
+
+.profile {
+  $self: #{&};
+  font-size: 20px;
+  padding: 0 20px;
+  :global {
+    #{$self}__name {
+      font-size: 30px;
+      padding-right: 5px;
+    }
+  }
+}
+
+.auth-btn {
+  $self: #{&};
+
+  :global {
+    #{$self}__text {
+      font-size: 24px;
+      font-weight: 400;
+      color: colors.$BLACK;
+    }
+  }
+}

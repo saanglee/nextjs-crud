@@ -1,16 +1,21 @@
 import React from 'react';
 import NewPostForm from '../../components/posts/NewPostForm';
 import { useRouter } from 'next/router';
+import { useIdToken } from 'react-firebase-hooks/auth';
+import { auth } from '../../firebase/firebaseClient';
 
 const NewMeepupPage = () => {
   const router = useRouter();
+  const [user] = useIdToken(auth);
+  const uid = user?.uid as string;
 
-  const addMeetupHandler = async (enteredMeetupData: any) => {
+  const addPostHandler = async (enteredPostData: any) => {
     try {
-      const response = await fetch('/api/new-meetup', {
+      const response = await fetch('/api/new-post', {
         method: 'POST',
-        body: JSON.stringify(enteredMeetupData),
+        body: JSON.stringify(enteredPostData),
         headers: {
+          uid,
           'Content-Type': 'application/json',
         },
       });
@@ -20,10 +25,10 @@ const NewMeepupPage = () => {
     } catch (error) {
       console.log(error);
     }
-    return enteredMeetupData;
+    return enteredPostData;
   };
 
-  return <NewPostForm onAddMeetup={addMeetupHandler} />;
+  return <NewPostForm onAddPost={addPostHandler} />;
 };
 
 export default NewMeepupPage;

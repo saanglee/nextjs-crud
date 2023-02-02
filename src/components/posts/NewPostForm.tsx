@@ -1,14 +1,9 @@
 import { useState } from 'react';
 import nextId from 'react-id-generator';
-import Card from '../shared/Card';
-import classes from './NewPostForm.module.scss';
-import { useRouter } from 'next/router';
-import { PlusOutlined } from '@ant-design/icons';
-import { Input, Upload } from 'antd';
-import Button from '../shared/Button';
 import PostForm from 'components/shared/PostForm';
 
-const { TextArea } = Input;
+import { auth } from '../../firebase/firebaseClient';
+import { useIdToken } from 'react-firebase-hooks/auth';
 
 const getStringDate = (date: Date) => {
   return date.toISOString().slice(0, 10);
@@ -24,8 +19,7 @@ interface Post {
 }
 
 const NewPostForm = (props: any) => {
-  const router = useRouter();
-
+  const user = useIdToken(auth);
   const [newForm, setNewForm] = useState<Post>({
     title: '',
     image: '',
@@ -34,8 +28,6 @@ const NewPostForm = (props: any) => {
     description: '',
     id: '',
   });
-
-  console.log(newForm);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setNewForm({
@@ -59,7 +51,7 @@ const NewPostForm = (props: any) => {
     });
 
     // eslint-disable-next-line react/destructuring-assignment, react/prop-types
-    props.onAddMeetup(newForm);
+    props.onAddPost(newForm);
   };
 
   return <PostForm submitHandler={submitHandler} inputChangeHandler={handleInputChange} contents={newForm} />;

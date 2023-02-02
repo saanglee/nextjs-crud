@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
+import { AuthProvider } from 'store/authProvider';
 import Layout from '../components/layout/Layout';
-import { RecoilRoot } from 'recoil';
 
 import '../styles/index.scss';
 
@@ -11,11 +11,11 @@ interface AppProps {
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <RecoilRoot>
+    <AuthProvider>
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </RecoilRoot>
+    </AuthProvider>
   );
 };
 

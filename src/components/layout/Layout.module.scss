@@ -19,6 +19,17 @@
   height: 100vh;
   max-width: 40rem;
   align-self: center;
+  @include responsive.between(772px, 1264px) {
+    & {
+      margin-left: 120px;
+    }
+  }
+
+  @include responsive.after(1265px) {
+    & {
+      margin-left: 315px;
+    }
+  }
 }
 
 .main_nav {

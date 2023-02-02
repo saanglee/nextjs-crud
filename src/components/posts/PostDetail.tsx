@@ -2,8 +2,11 @@ import Button from 'components/shared/Button';
 import Form from 'components/shared/PostForm';
 import Card from 'components/shared/Card';
 import { useRouter } from 'next/router';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import classes from './PostDetail.module.scss';
+
+import { auth } from '../../firebase/firebaseClient';
+import { useIdToken } from 'react-firebase-hooks/auth';
 
 export interface PostDetailProps {
   collectionId?: string;
@@ -26,6 +29,10 @@ const PostDetail = ({ collectionId, id, date, image, title, address, description
     description,
     id,
   };
+
+  const [user] = useIdToken(auth);
+  const uid = user?.uid as string;
+
   const [localContent, setLocalContent] = useState(contents);
   console.log('localContent.date', localContent.date);
   const [isEdit, setIsEdit] = useState(false);
@@ -46,12 +53,13 @@ const PostDetail = ({ collectionId, id, date, image, title, address, description
     setLocalContent(contents);
   };
 
-  const updateMeetupHandler = async (updatedMeetupData: any) => {
+  const updatePostHandler = async (updatedPostData: any) => {
     try {
-      const response = await fetch('/api/update-meetup', {
+      const response = await fetch('/api/update-post', {
         method: 'POST',
-        body: JSON.stringify(updatedMeetupData),
+        body: JSON.stringify(updatedPostData),
         headers: {
+          uid,
           'Content-Type': 'application/json',
         },
       });
@@ -60,12 +68,12 @@ const PostDetail = ({ collectionId, id, date, image, title, address, description
     } catch (error) {
       console.log(error);
     }
-    return updatedMeetupData;
+    return updatedPostData;
   };
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    updateMeetupHandler(localContent);
+    updatePostHandler(localContent);
     refreshServerSide();
     toggleIsEdit();
   };

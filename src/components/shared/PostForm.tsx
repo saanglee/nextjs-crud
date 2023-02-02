@@ -19,11 +19,11 @@ const PostForm = ({ submitHandler, inputChangeHandler, handleQuitEdit, contents,
     <Card date={contents.date}>
       <form className={classes.form} onSubmit={submitHandler}>
         <div className={classes.control}>
-          <label htmlFor="title">Meetup Title</label>
+          <label htmlFor="title">Post Title</label>
           <input name="title" value={contents.title} type="text" required onChange={inputChangeHandler} id="title" />
         </div>
         <div className={classes.control}>
-          <label htmlFor="image">Meetup Image</label>
+          <label htmlFor="image">Post Image</label>
           <input name="image" value={contents.image} type="url" required onChange={inputChangeHandler} id="image" />
         </div>
         <div className={classes.control}>
@@ -59,12 +59,12 @@ const PostForm = ({ submitHandler, inputChangeHandler, handleQuitEdit, contents,
           </div>
         ) : (
           <div className={classes.actions__add}>
-            <Button text="ADD MEETUP" type="submit" />
+            <Button text="ADD Post" type="submit" />
           </div>
         )}
 
         <div className={classes.control}>
-          <label htmlFor="image">Meetup Image</label>
+          <label htmlFor="image">Post Image</label>
           {/* <input name='image' value={form.image} type='url' required onChange={inputChangeHandler} id='image' /> */}
           <Upload action="/upload.do" listType="picture-card">
             <div>

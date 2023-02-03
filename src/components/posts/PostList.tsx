@@ -10,7 +10,7 @@ const PostList = ({ posts }: any) => {
           collectionId={post.collectionId}
           id={post.id}
           date={post.date}
-          image={post.image}
+          image={post?.image}
           title={post.title}
           address={post.address}
         />

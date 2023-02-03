@@ -11,7 +11,7 @@ const getStringDate = (date: Date): string => {
 
 interface Post {
   title: string;
-  image: string;
+  image?: string;
   address: string;
   date: any;
   description: string;

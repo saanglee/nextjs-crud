@@ -9,7 +9,7 @@ import nookies from 'nookies';
 interface PostDetail {
   title: string;
   address: string;
-  image: string;
+  image?: string;
   description: string;
   id: string;
   collectionId: string;

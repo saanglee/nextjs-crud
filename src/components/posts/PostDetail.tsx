@@ -11,7 +11,7 @@ import { useIdToken } from 'react-firebase-hooks/auth';
 export interface PostDetailProps {
   collectionId?: string;
   id?: string;
-  image: string;
+  image?: string;
   date: Date;
   title: string;
   address: string;
@@ -97,15 +97,14 @@ const PostDetail = ({ collectionId, id, date, image, title, address, description
       ) : (
         <Card date={localContent.date}>
           <section className={classes.detail}>
-            <img src={image} alt={title} />
+            {image && <img src={image} alt={title} />}
             <div className={classes.detail__content}>
               <h1>{localContent.title}</h1>
-              <address>{localContent.address} </address>
+              <address>{localContent.address}</address>
               <p>{localContent.description} </p>
             </div>
             <div className={classes.actions}>
               <Button text="수정하기" onClick={toggleIsEdit} />
-              {/* <button onClick={toggleIsEdit}>수정하기</button> */}
             </div>
           </section>
         </Card>

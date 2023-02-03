@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import Card from 'components/shared/Card';
 import Button from 'components/shared/Button';
 import classes from './index.module.scss';
@@ -34,7 +34,7 @@ const SignupForm = () => {
       [event.currentTarget.name]: event.currentTarget.value,
     });
   };
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void | Promise<UserCredential | undefined> => {
+  const handleSignupSubmit = (event: React.FormEvent<HTMLFormElement>): void | Promise<UserCredential | undefined> => {
     event.preventDefault();
     if (error) setError('');
     if (signupForm.password !== signupForm.confirmPassword) return setError('동일한 비밀번호를 입력해주세요.');
@@ -52,7 +52,7 @@ const SignupForm = () => {
   return (
     <div>
       <Card size="sm" date="SIGN UP">
-        <form className={classes.login__form} onSubmit={handleSubmit}>
+        <form className={classes.login__form} onSubmit={handleSignupSubmit}>
           <div className={classes.control}>
             <label htmlFor="id">Email</label>
             <input name="email" value={signupForm.email} type="email" required onChange={handleInputChange} />

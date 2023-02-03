@@ -10,7 +10,6 @@ export interface CardProps {
 }
 
 const Card = ({ children, size = 'md', date }: CardProps) => {
-  // eslint-disable-next-line react/destructuring-assignment
   return (
     <div className={cx('card', size)}>
       <div className="card__date">

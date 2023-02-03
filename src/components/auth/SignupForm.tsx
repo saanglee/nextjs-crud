@@ -51,7 +51,6 @@ const SignupForm = () => {
 
   return (
     <div>
-      w
       <Card size="sm" date="SIGN UP">
         <form className={classes.login__form} onSubmit={handleSubmit}>
           <div className={classes.control}>

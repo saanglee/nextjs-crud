@@ -6,10 +6,15 @@ import { admin } from '../firebase/firebaseAdmin';
 import nookies from 'nookies';
 import { useAuth } from 'store/authProvider';
 import Card from 'components/shared/Card';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const HomePage = ({ userPosts }: any) => {
+  const router = useRouter();
   const { user } = useAuth();
-  if (!user) return <div> 로그인을 해주세요! 로그인 페이지로 가기</div>;
+  useEffect(() => {
+    if (!user) router.replace('/login');
+  }, []);
   if (!userPosts?.length)
     return (
       <div>

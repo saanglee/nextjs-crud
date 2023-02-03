@@ -31,13 +31,19 @@
 
   :global {
     #{$self}__list {
-      // mobile
       width: 100%;
       display: flex;
       justify-content: space-around;
 
-      // tablet, pc
-      @include responsive.after(772px) {
+      @include responsive.between(772px, 1264px) {
+        & {
+          margin: 10px 0;
+          padding: 0 10px;
+          flex-direction: column;
+        }
+      }
+
+      @include responsive.after(1265px) {
         & {
           margin: 10px 0;
           flex-direction: column;
@@ -46,31 +52,43 @@
     }
 
     #{$self}__item {
-      width: 100%;
-
+      width: 60px;
+      height: 50px;
       display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
 
       @include responsive.between(772px, 1264px) {
         & {
-          padding: 16px 0;
+          width: 100%;
+          height: 70px;
           justify-content: center;
+          align-items: center;
         }
       }
 
       @include responsive.after(1265px) {
         & {
-          padding: 12px 10px;
-          margin: 10px 0;
+          width: 100%;
+          height: 80px;
           align-items: center;
+          padding: 0 10px;
 
           font-size: 24px;
           color: colors.$BLACK;
+          justify-content: left;
         }
+      }
+
+      &:hover {
+        background-color: #e2ecfe;
       }
     }
 
     #{$self}__item--pc {
       display: none;
+      padding: 0 10px;
 
       @include responsive.after(1265px) {
         display: block;
@@ -84,7 +102,12 @@
   display: none;
   margin: 20px 0;
 
-  @include responsive.after(772px) {
+  @include responsive.between(772px, 1264px) {
+    text-align: center;
+    display: block;
+  }
+
+  @include responsive.after(1265px) {
     display: block;
   }
 
@@ -94,17 +117,6 @@
       font-weight: 700;
       color: colors.$BLACK;
     }
-
-    // #{$self}__text--tablet {
-    //   display: block;
-    //   font-size: 36px;
-    //   font-weight: 700;
-    //   color: colors.$BLACK;
-
-    //   @include responsive.between(772px, 1264px) {
-    //     display: none;
-    //   }
-    // }
   }
 }
 

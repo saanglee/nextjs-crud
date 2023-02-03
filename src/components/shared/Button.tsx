@@ -23,7 +23,7 @@ const Button = ({ size = 'md', type = 'button', extendClass, children, text, onC
   return (
     <button type={type} className={cx('button', size, extendClass)} onClick={onClick}>
       <span>{text}</span>
-      <span style={iconStyle}>{children}</span>
+      <span>{children}</span>
     </button>
   );
 };

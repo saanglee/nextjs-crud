@@ -1,18 +1,19 @@
 import Link from 'next/link';
-import classNames from 'classnames/bind';
-import styles from './MainNavigation.module.scss';
-import { HomeOutlined, PlusCircleOutlined, SearchOutlined, LoginOutlined, UserOutlined } from '@ant-design/icons';
+import { useRouter } from 'next/router';
+
 import { auth } from '../../firebase/firebaseClient';
 import { useIdToken } from 'react-firebase-hooks/auth';
 import { signOut } from 'firebase/auth';
-import { useRouter } from 'next/router';
+
+import { HomeOutlined, PlusCircleOutlined, SearchOutlined, LoginOutlined, UserOutlined } from '@ant-design/icons';
+import classNames from 'classnames/bind';
+import styles from './MainNavigation.module.scss';
 
 const cx = classNames.bind(styles);
 
 const iconStyle = {
   color: '#000',
   fontSize: 28,
-  paddingRight: 20,
 };
 
 const MainNavigation = () => {
@@ -21,7 +22,7 @@ const MainNavigation = () => {
 
   const handleLogoutClick = () => {
     signOut(auth).then(() => {
-      alert('로그아웃!');
+      alert('로그아웃합니다.');
     });
     router.push('/login');
   };
@@ -32,9 +33,6 @@ const MainNavigation = () => {
         <Link href="/" className="logo__text">
           React CRUD
         </Link>
-        {/* <Link href="/" className="logo__text--tablet">
-          R C
-        </Link> */}
       </div>
       <ul className="main-nav__list">
         <li>

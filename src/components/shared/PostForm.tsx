@@ -24,7 +24,7 @@ const PostForm = ({ submitHandler, inputChangeHandler, handleQuitEdit, contents,
         </div>
         <div className={classes.control}>
           <label htmlFor="image">Post Image</label>
-          <input name="image" value={contents.image} type="url" required onChange={inputChangeHandler} id="image" />
+          <input name="image" value={contents.image} type="url" onChange={inputChangeHandler} id="image" />
         </div>
         <div className={classes.control}>
           <label htmlFor="date">오늘 날짜</label>

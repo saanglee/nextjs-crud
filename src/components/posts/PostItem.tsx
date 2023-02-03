@@ -8,7 +8,7 @@ import Button from 'components/shared/Button';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useAuth } from 'store/authProvider';
 
-const PostItem = ({ collectionId, id, date, image, title, address }: any) => {
+const PostItem = ({ collectionId, id, date, image = null, title, address }: any) => {
   const { user } = useAuth();
   const uid = user?.uid;
   const router = useRouter();
@@ -38,18 +38,18 @@ const PostItem = ({ collectionId, id, date, image, title, address }: any) => {
           <h2>{title}</h2>
           <address>{address}</address>
         </div>
-        <div className={classes.image}>
-          {/* <img src={image} alt={title} /> */}
-
-          <Image
-            src={image}
-            alt={title}
-            placeholder="blur"
-            blurDataURL="https://www.froben11.de/wp-content/uploads/2016/10/orionthemes-placeholder-image.png"
-            width={500}
-            height={500}
-          />
-        </div>
+        {image && (
+          <div className={classes.image}>
+            <Image
+              src={image}
+              alt={title}
+              placeholder="blur"
+              blurDataURL="https://www.froben11.de/wp-content/uploads/2016/10/orionthemes-placeholder-image.png"
+              width={500}
+              height={500}
+            />
+          </div>
+        )}
         <div className={classes.actions}>
           <Button text="SHOW MORE" size="lg" onClick={showDetailsHandler} />
           <Button text="DELETE" size="lg" onClick={(event: any) => deletePost(event, collectionId)}>

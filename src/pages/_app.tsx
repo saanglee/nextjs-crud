@@ -1,8 +1,9 @@
 import { FunctionComponent } from 'react';
-import { AuthProvider } from 'store/authProvider';
+import { AuthProvider, useAuth } from 'store/authProvider';
 import Layout from '../components/layout';
 
 import '../styles/index.scss';
+import { useRouter } from 'next/router';
 
 interface AppProps {
   Component: FunctionComponent;
@@ -10,6 +11,9 @@ interface AppProps {
 }
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const router = useRouter();
+  const user = useAuth();
+  if (!user) router.replace('/login');
   return (
     <AuthProvider>
       <Layout>

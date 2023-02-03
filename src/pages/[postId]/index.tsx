@@ -17,20 +17,21 @@ interface PostDetail {
 }
 
 const PostDetails = ({ selectedItem }: any) => {
-  console.log(selectedItem);
-  const { title, address, image, description, id, collectionId, date } = selectedItem[0];
-
-  return (
-    <PostDetail
-      image={image}
-      title={title}
-      address={address}
-      description={description}
-      id={id}
-      collectionId={collectionId}
-      date={date}
-    />
-  );
+  if (selectedItem) {
+    const { title, address, image, description, id, collectionId, date } = selectedItem[0];
+    return (
+      <PostDetail
+        image={image}
+        title={title}
+        address={address}
+        description={description}
+        id={id}
+        collectionId={collectionId}
+        date={date}
+      />
+    );
+  }
+  return <div />;
 };
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {

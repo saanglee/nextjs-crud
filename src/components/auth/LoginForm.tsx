@@ -4,9 +4,11 @@ import Button from 'components/shared/Button';
 import classes from './index.module.scss';
 import { useRouter } from 'next/router';
 import { auth } from '../../firebase/firebaseClient';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { FIREBASE_ERRORS } from '../../firebase/errors';
 import { browserSessionPersistence, setPersistence } from 'firebase/auth';
+import Image from 'next/image';
+import googleButton from '../../assets/images/googleButton.png';
 
 const LoginForm = () => {
   const router = useRouter();
@@ -15,6 +17,7 @@ const LoginForm = () => {
     password: '',
   });
   const [signInWithEmailAndPassword, userCredential, loading, authError] = useSignInWithEmailAndPassword(auth);
+  const [signInWithGoogle, googleUser, googleLoading, googleAuthError] = useSignInWithGoogle(auth);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm({
@@ -57,6 +60,11 @@ const LoginForm = () => {
             <>
               <div className={classes.login__button}>
                 <Button type="submit" text="로그인" size="lg" />
+              </div>
+              <div className={classes.login__button}>
+                <button type="button" onClick={() => signInWithGoogle()}>
+                  <Image src={googleButton} alt="google logo" width={260} />
+                </button>
               </div>
               <div className={classes.login__button}>
                 <p> 회원이 아니신가요? </p>

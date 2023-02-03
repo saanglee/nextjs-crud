@@ -21,7 +21,7 @@ const HomePage = ({ userPosts }: any) => {
   return <PostList posts={userPosts} />;
 };
 
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext): Promise<{ props: {} }> => {
   try {
     const cookies = nookies.get(context);
     const token = await admin.auth().verifyIdToken(cookies.token);

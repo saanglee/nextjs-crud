@@ -5,7 +5,7 @@ import PostForm from 'components/shared/PostForm';
 import { auth } from '../../firebase/firebaseClient';
 import { useIdToken } from 'react-firebase-hooks/auth';
 
-const getStringDate = (date: Date) => {
+const getStringDate = (date: Date): string => {
   return date.toISOString().slice(0, 10);
 };
 

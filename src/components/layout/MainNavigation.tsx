@@ -12,7 +12,6 @@ const cx = classNames.bind(styles);
 const iconStyle = {
   color: '#000',
   fontSize: 28,
-  paddingRight: 20,
 };
 
 const MainNavigation = () => {
@@ -32,9 +31,6 @@ const MainNavigation = () => {
         <Link href="/" className="logo__text">
           React CRUD
         </Link>
-        {/* <Link href="/" className="logo__text--tablet">
-          R C
-        </Link> */}
       </div>
       <ul className="main-nav__list">
         <li>

@@ -48,18 +48,33 @@ const SignupForm = () => {
         <form className={classes.login__form} onSubmit={handleSignupSubmit}>
           <div className={classes.control}>
             <label htmlFor="id">Email</label>
-            <input name="email" value={signupForm.email} type="email" required onChange={handleInputChange} />
+            <input
+              name="email"
+              placeholder="이메일"
+              value={signupForm.email}
+              type="email"
+              required
+              onChange={handleInputChange}
+            />
           </div>
 
           <div className={classes.control}>
             <label htmlFor="password">Password </label>
-            <input name="password" value={signupForm.password} type="password" required onChange={handleInputChange} />
+            <input
+              name="password"
+              placeholder="비밀번호"
+              value={signupForm.password}
+              type="password"
+              required
+              onChange={handleInputChange}
+            />
           </div>
 
           <div className={classes.control}>
             <label htmlFor="password">Password </label>
             <input
               name="confirmPassword"
+              placeholder="비밀번호 재확인"
               value={signupForm.confirmPassword}
               type="password"
               required

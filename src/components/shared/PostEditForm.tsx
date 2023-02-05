@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from 'components/shared/Card';
-import classes from './PostForm.module.scss';
+import classes from './PostEditForm.module.scss';
 import Button from './Button';
 import { Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
@@ -14,7 +14,7 @@ interface FormProps {
   isEdit?: boolean;
 }
 
-const PostForm = ({ submitHandler, inputChangeHandler, handleQuitEdit, contents, isEdit = false }: FormProps) => {
+const PostEditForm = ({ submitHandler, inputChangeHandler, handleQuitEdit, contents, isEdit = false }: FormProps) => {
   return (
     <Card date={contents.date}>
       <form className={classes.form} onSubmit={submitHandler}>
@@ -65,7 +65,6 @@ const PostForm = ({ submitHandler, inputChangeHandler, handleQuitEdit, contents,
 
         <div className={classes.control}>
           <label htmlFor="image">Post Image</label>
-          {/* <input name='image' value={form.image} type='url' required onChange={inputChangeHandler} id='image' /> */}
           <Upload action="/upload.do" listType="picture-card">
             <div>
               <PlusOutlined />
@@ -78,4 +77,4 @@ const PostForm = ({ submitHandler, inputChangeHandler, handleQuitEdit, contents,
   );
 };
 
-export default PostForm;
+export default PostEditForm;

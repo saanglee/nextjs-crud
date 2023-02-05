@@ -11,7 +11,7 @@
   position: fixed;
   z-index: 9;
 
-  @include responsive.between(720px, 1264px) {
+  @include responsive.between(772px, 1264px) {
     bottom: 180px;
     left: 380px;
   }

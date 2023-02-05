@@ -71,7 +71,7 @@
       @include responsive.after(1265px) {
         & {
           width: 100%;
-          height: 80px;
+          height: 70px;
           align-items: center;
           padding: 0 10px;
 
@@ -82,7 +82,11 @@
       }
 
       &:hover {
-        background-color: #e2ecfe;
+        color: #fff;
+        background-color: colors.$BLACK;
+        svg {
+          color: #fff;
+        }
       }
     }
 

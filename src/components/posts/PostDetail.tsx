@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Button from 'components/shared/Button';
-import Form from 'components/shared/PostForm';
+import PostEditForm from 'components/shared/PostEditForm';
 import Card from 'components/shared/Card';
-import { PostForm } from './NewPost';
+import { Post } from 'pages';
 
 import { auth } from '../../firebase/firebaseClient';
 import { useIdToken } from 'react-firebase-hooks/auth';
 
 import classes from './PostDetail.module.scss';
 
-interface PostDetailProps extends PostForm {
-  collectionId?: string;
-}
-
-const PostDetail = ({ collectionId, id, date, image, title, address, description }: PostDetailProps) => {
+const PostDetail = ({ collectionId, id, date, image, title, address, description }: Post) => {
   const router = useRouter();
 
   const [user] = useIdToken(auth);
@@ -43,7 +39,7 @@ const PostDetail = ({ collectionId, id, date, image, title, address, description
   const toggleIsEdit = () => setIsEdit(!isEdit);
   const handleQuitEdit = () => setIsEdit(false);
 
-  const updatePostHandler = async (updatedPostData: PostDetailProps): Promise<any> => {
+  const updatePostHandler = async (updatedPostData: Post): Promise<any> => {
     try {
       const response = await fetch('/api/update-post', {
         method: 'POST',
@@ -76,7 +72,7 @@ const PostDetail = ({ collectionId, id, date, image, title, address, description
       <div />
       {isEdit ? (
         <div>
-          <Form
+          <PostEditForm
             submitHandler={handleUpdatedPostSubmit}
             inputChangeHandler={handleInputChange}
             contents={localContent}

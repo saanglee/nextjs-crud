@@ -1,7 +1,8 @@
 import React from 'react';
-import NewPostForm, { PostForm } from '../../components/posts/NewPost';
+import NewPost, { PostForm } from '../../components/posts/NewPost';
 import { useRouter } from 'next/router';
 import { useAuth } from 'store/authProvider';
+import Message from 'components/shared/Message';
 
 const NewPostPage = () => {
   const { user } = useAuth();
@@ -27,8 +28,11 @@ const NewPostPage = () => {
     return newPost;
   };
 
-  if (!user) return <div> 로그인을 해주세요! 로그인 페이지로 가기</div>;
-  return <NewPostForm addPostHandler={addPostHandler} />;
+  if (!user)
+    return (
+      <Message messageTitle="로그인 이후에 이용하실 수 있습니다." buttonText="로그인 페이지로 가기" linkTo="/login" />
+    );
+  return <NewPost addPostHandler={addPostHandler} />;
 };
 
 export default NewPostPage;

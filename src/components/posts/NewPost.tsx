@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import nextId from 'react-id-generator';
-import PostForm from 'components/shared/PostForm';
-
-const getStringDate = (date: Date): string => {
-  return date.toISOString().slice(0, 10);
-};
+import PostEditForm from 'components/shared/PostEditForm';
+import { getStringDate } from 'utils';
 
 export interface PostForm {
   title: string;
@@ -15,7 +12,11 @@ export interface PostForm {
   id: string;
 }
 
-const NewPostForm = ({ addPostHandler }: any) => {
+interface NewPostProps {
+  addPostHandler: (newPost: PostForm) => Promise<any>;
+}
+
+const NewPost = ({ addPostHandler }: NewPostProps) => {
   const [newForm, setNewForm] = useState<PostForm>({
     title: '',
     image: '',
@@ -44,11 +45,10 @@ const NewPostForm = ({ addPostHandler }: any) => {
       id: '',
     });
 
-    // eslint-disable-next-line react/destructuring-assignment, react/prop-types
     addPostHandler(newForm);
   };
 
-  return <PostForm submitHandler={handleNewPostSubmit} inputChangeHandler={handleInputChange} contents={newForm} />;
+  return <PostEditForm submitHandler={handleNewPostSubmit} inputChangeHandler={handleInputChange} contents={newForm} />;
 };
 
-export default NewPostForm;
+export default NewPost;

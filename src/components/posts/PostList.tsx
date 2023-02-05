@@ -1,10 +1,16 @@
 import PostItem from './PostItem';
-import classes from './PostList.module.css';
+import { Post, Posts } from 'pages';
 
-const PostList = ({ posts }: any) => {
+const listStyle = {
+  listStyle: 'none',
+  margin: 0,
+  padding: 0,
+};
+
+const PostList = ({ posts }: Posts) => {
   return (
-    <ul className={classes.list}>
-      {posts?.reverse().map((post: any) => (
+    <ul style={listStyle}>
+      {posts?.reverse().map((post: Post) => (
         <PostItem
           key={post.collectionId}
           collectionId={post.collectionId}
@@ -13,6 +19,7 @@ const PostList = ({ posts }: any) => {
           image={post?.image}
           title={post.title}
           address={post.address}
+          description={post.description}
         />
       ))}
     </ul>

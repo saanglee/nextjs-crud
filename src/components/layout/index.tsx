@@ -1,8 +1,8 @@
 import MainNavigation from './MainNavigation';
-import classNames from 'classnames/bind';
-import styles from './index.module.scss';
 import { ReactNode } from 'react';
 import MobileHeader from './MobileHeader';
+import classNames from 'classnames/bind';
+import styles from './index.module.scss';
 
 const cx = classNames.bind(styles);
 

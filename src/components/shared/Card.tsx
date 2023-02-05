@@ -12,7 +12,7 @@ export interface CardProps {
 const Card = ({ children, size = 'md', date }: CardProps) => {
   return (
     <div className={cx('card', size)}>
-      <div className="card__date">
+      <div className={cx('card__header')}>
         <span>{date as string}</span>
         <ul>
           <li /> <li /> <li />

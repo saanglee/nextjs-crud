@@ -1,0 +1,34 @@
+.item {
+  margin: 1rem 0;
+}
+
+.image {
+  width: 88%;
+  height: 18rem;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 5px solid black;
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.content {
+  text-align: left;
+  width: 85%;
+  margin: 20px 0;
+  h2 {
+    padding: 12px 0;
+    font-size: 38px;
+    font-weight: 800;
+    color: #2c292b;
+  }
+}
+
+.actions {
+  width: 88%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}

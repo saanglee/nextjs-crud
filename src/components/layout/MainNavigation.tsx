@@ -37,20 +37,20 @@ const MainNavigation = () => {
       <ul className="main-nav__list">
         <li>
           <Link href="/" className="main-nav__item">
-            <HomeOutlined style={iconStyle} />
+            <HomeOutlined className="main-nav__icon" style={iconStyle} />
             <span className="main-nav__item--pc">All Posts</span>
           </Link>
         </li>
         <li>
           <Link href="/new-post" className="main-nav__item">
-            <PlusCircleOutlined style={iconStyle} />
+            <PlusCircleOutlined className="main-nav__icon" style={iconStyle} />
             <span className="main-nav__item--pc">Add New Post</span>
           </Link>
         </li>
 
         <li>
           <Link href="/search" className="main-nav__item">
-            <SearchOutlined style={iconStyle} />
+            <SearchOutlined className="main-nav__icon" style={iconStyle} />
             <span className="main-nav__item--pc">Search</span>
           </Link>
         </li>
@@ -58,7 +58,7 @@ const MainNavigation = () => {
       {user ? (
         <>
           <div className={cx('profile')}>
-            <UserOutlined style={iconStyle} />
+            <UserOutlined className="main-nav__icon" style={iconStyle} />
             <span className="profile__name">{user?.email?.split('@')[0]}</span>
             <span>님</span>
           </div>

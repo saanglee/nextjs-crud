@@ -1,21 +1,39 @@
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { GetServerSidePropsContext } from 'next';
+import Card from 'components/shared/Card';
 import PostList from 'components/posts/PostList';
+import { useAuth } from 'store/authProvider';
+
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { db } from '../firebase/firebaseClient';
 import { admin } from '../firebase/firebaseAdmin';
-import nookies from 'nookies';
-import { useAuth } from 'store/authProvider';
-import Card from 'components/shared/Card';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 
-const HomePage = ({ userPosts }: any) => {
+import nookies from 'nookies';
+
+export interface Post {
+  collectionId: string;
+  id: string;
+  title: string;
+  date: string;
+  image: string;
+  address: string;
+  description: string;
+}
+
+export interface Posts {
+  posts: Post[];
+}
+
+const HomePage = ({ posts }: Posts) => {
   const router = useRouter();
   const { user } = useAuth();
+
   useEffect(() => {
     if (!user) router.replace('/login');
   }, []);
-  if (!userPosts?.length)
+
+  if (!posts?.length)
     return (
       <div>
         <Card>
@@ -23,7 +41,7 @@ const HomePage = ({ userPosts }: any) => {
         </Card>
       </div>
     );
-  return <PostList posts={userPosts} />;
+  return <PostList posts={posts} />;
 };
 
 export const getServerSideProps = async (context: GetServerSidePropsContext): Promise<{ props: {} }> => {
@@ -32,7 +50,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext): Pr
     const token = await admin.auth().verifyIdToken(cookies.token);
     const { uid } = token;
     const querySnapshot = await getDocs(collection(db, uid));
-    const userPosts = querySnapshot.docs.map((doc) => {
+    const userPosts: Post[] = querySnapshot.docs.map((doc) => {
       return {
         collectionId: doc.id,
         id: doc.data().id,
@@ -45,17 +63,11 @@ export const getServerSideProps = async (context: GetServerSidePropsContext): Pr
     });
 
     return {
-      props: {
-        userPosts: JSON.parse(JSON.stringify(userPosts)),
-      },
+      props: { posts: userPosts },
     };
   } catch (error) {
     console.log('❗️ HomePage - getServerSideProps error: ', error);
     return {
-      // redirect: {
-      //   permanent: false,
-      //   destination: '/login',
-      // },
       props: {} as never,
     };
   }

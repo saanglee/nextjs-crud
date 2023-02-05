@@ -1,0 +1,24 @@
+@use 'styles/mixins/responsive';
+@use 'styles/constants/colors';
+@use 'styles/constants/sizes';
+
+.message {
+  // border: 1px solid red;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  @include responsive.after(772px) {
+    height: 400px;
+  }
+  .message__title {
+    font-size: 18px;
+    margin: 24px 0;
+    @include responsive.after(772px) {
+      font-size: 28px;
+      margin-bottom: 40px;
+    }
+  }
+}

@@ -1,28 +1,27 @@
-import Card from '../shared/Card';
-import classes from './PostItem.module.css';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
+import Card from '../shared/Card';
+import Button from 'components/shared/Button';
+import { Post } from 'pages';
+
 import { db } from '../../firebase/firebaseClient';
 import { doc, deleteDoc } from 'firebase/firestore/lite';
-import Image from 'next/image';
-import Button from 'components/shared/Button';
-import { DeleteOutlined } from '@ant-design/icons';
 import { useAuth } from 'store/authProvider';
 
-const PostItem = ({ collectionId, id, date, image = null, title, address }: any) => {
+import classes from './PostItem.module.scss';
+import { DeleteOutlined } from '@ant-design/icons';
+
+const PostItem = ({ collectionId, id, date, image, title, address }: Post) => {
+  const router = useRouter();
   const { user } = useAuth();
   const uid = user?.uid;
-  const router = useRouter();
-  const showDetailsHandler = () => {
-    router.push(`/${id}`); // = Link Component
-  };
 
   const deletePost = async (event: React.MouseEvent<HTMLButtonElement>, targetId: string) => {
-    if (window.confirm(` ${targetId} "${title}" 를 삭제하시겠습니까?`)) {
+    if (window.confirm(`"${title}" 를 삭제하시겠습니까?`)) {
       event.preventDefault();
       const docRef = doc(db, uid as string, targetId);
-      console.log('docRef: ', docRef);
       await deleteDoc(docRef);
-      alert(`targetId:${targetId} deleted successfully`);
+      alert('삭제 완료');
       refreshServerSide();
     }
   };
@@ -51,7 +50,7 @@ const PostItem = ({ collectionId, id, date, image = null, title, address }: any)
           </div>
         )}
         <div className={classes.actions}>
-          <Button text="SHOW MORE" size="lg" onClick={showDetailsHandler} />
+          <Button text="SHOW MORE" size="lg" onClick={() => router.push(`/${id}`)} />
           <Button text="DELETE" size="lg" onClick={(event: any) => deletePost(event, collectionId)}>
             <DeleteOutlined />
           </Button>

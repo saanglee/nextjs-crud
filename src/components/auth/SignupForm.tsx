@@ -86,7 +86,7 @@ const SignupForm = () => {
             {FIREBASE_ERRORS[authError?.message as keyof typeof FIREBASE_ERRORS]}
           </div>
           {loading ? (
-            <div>회원가입 진행 중...</div>
+            <div className={classes.loading_message}>회원가입 진행 중...</div>
           ) : (
             <>
               <div className={classes.login__button}>

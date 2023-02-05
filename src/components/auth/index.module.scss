@@ -25,17 +25,24 @@
       font-size: 22px;
       margin-bottom: 0.5rem;
       width: 160px;
+
+      @include responsive.between(0px, 771px) {
+        display: none;
+      }
     }
 
     input {
       padding: 10px 15px;
       height: 55px;
       display: block;
-      font: inherit;
       border-radius: 8px;
       border: sizes.$BORDER;
       width: 65%;
       font-weight: bold;
+
+      @include responsive.between(0px, 771px) {
+        width: 100%;
+      }
     }
   }
 

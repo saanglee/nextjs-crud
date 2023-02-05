@@ -8,14 +8,6 @@ import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { FIREBASE_ERRORS } from '../../firebase/errors';
 import { UserCredential } from 'firebase/auth';
 
-interface SignupFormProps {
-  isSignUp?: boolean;
-  form?: any;
-  user?: any;
-  onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
 const SignupForm = () => {
   const router = useRouter();
 
@@ -52,6 +44,7 @@ const SignupForm = () => {
   return (
     <div>
       <Card size="sm" date="SIGN UP">
+        <h1 className={classes.login__title}> 회원가입 </h1>
         <form className={classes.login__form} onSubmit={handleSignupSubmit}>
           <div className={classes.control}>
             <label htmlFor="id">Email</label>
@@ -80,9 +73,16 @@ const SignupForm = () => {
           {loading ? (
             <div>회원가입 진행 중...</div>
           ) : (
-            <div className={classes.login__button}>
-              <Button type="submit" text="회원가입 > " size="lg" />
-            </div>
+            <>
+              <div className={classes.login__button}>
+                <Button type="submit" text="작성 완료 > " size="lg" />
+              </div>
+
+              <div className={classes.login__button}>
+                <p> 계정이 있으신가요? </p>
+                <Button type="submit" text="로그인하러 가기 < " size="lg" onClick={() => router.replace('/login')} />
+              </div>
+            </>
           )}
         </form>
       </Card>

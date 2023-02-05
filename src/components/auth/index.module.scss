@@ -1,5 +1,15 @@
+@use 'styles/mixins/responsive';
+@use 'styles/constants/colors';
 @use 'styles/constants/sizes';
 
+.login__title {
+  font-size: 34px;
+  font-weight: 900;
+  margin-bottom: 25px;
+  @include responsive.after(772px) {
+    display: none;
+  }
+}
 .login__form {
   .control {
     margin-bottom: 0.5rem;
@@ -34,7 +44,7 @@
     text-align: center;
     margin: 20px 0 0 0;
   }
-  .login__loading{
+  .login__loading {
     text-align: center;
     font-weight: 800;
     font-size: 24px;

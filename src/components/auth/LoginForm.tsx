@@ -8,9 +8,9 @@ import { auth } from '../../firebase/firebaseClient';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { FIREBASE_ERRORS } from '../../firebase/errors';
 import { browserSessionPersistence, setPersistence } from 'firebase/auth';
+import googleButton from '../../assets/images/googleButton.png';
 
 import classes from './index.module.scss';
-import googleButton from '../../assets/images/googleButton.png';
 
 const LoginForm = () => {
   const router = useRouter();
@@ -45,6 +45,7 @@ const LoginForm = () => {
   return (
     <div>
       <Card size="sm" date="LOG IN">
+        <h1 className={classes.login__title}> 로그인 </h1>
         <form className={classes.login__form} onSubmit={handleLoginSubmit}>
           <div className={classes.control}>
             <label htmlFor="id">Email</label>

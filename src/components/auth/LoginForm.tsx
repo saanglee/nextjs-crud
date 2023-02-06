@@ -49,11 +49,18 @@ const LoginForm = () => {
         <form className={classes.login__form} onSubmit={handleLoginSubmit}>
           <div className={classes.control}>
             <label htmlFor="id">Email</label>
-            <input name="email" type="email" required onChange={handleInputChange} id="email" />
+            <input name="email" type="email" placeholder="이메일" required onChange={handleInputChange} id="email" />
           </div>
           <div className={classes.control}>
             <label htmlFor="password">Password </label>
-            <input name="password" type="password" required onChange={handleInputChange} id="password" />
+            <input
+              name="password"
+              type="password"
+              placeholder="비밀번호"
+              required
+              onChange={handleInputChange}
+              id="password"
+            />
           </div>
           <div className={classes.error_message}>
             {FIREBASE_ERRORS[authError?.message as keyof typeof FIREBASE_ERRORS]}

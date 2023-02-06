@@ -16,6 +16,7 @@
   :global {
     #{$self}__auth {
       display: flex;
+      align-items: center;
     }
   }
 }
@@ -25,8 +26,8 @@
 
   :global {
     #{$self}__text {
-      font-size: 36px;
-      font-weight: 700;
+      font-size: 32px;
+      font-weight: 600;
       color: colors.$BLACK;
     }
   }
@@ -34,11 +35,11 @@
 
 .profile {
   $self: #{&};
-  font-size: 20px;
+  font-size: 16px;
   padding: 0 20px;
   :global {
     #{$self}__name {
-      font-size: 30px;
+      font-size: 16px;
       padding-right: 5px;
     }
   }
@@ -49,7 +50,7 @@
 
   :global {
     #{$self}__text {
-      font-size: 24px;
+      font-size: 16px;
       font-weight: 400;
       color: colors.$BLACK;
     }

@@ -12,7 +12,24 @@
   font-family: 'Kanit';
   src: url('../../assets/fonts/Kanit-Regular.ttf') format('woff');
   font-weight: normal;
-  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Kanit';
+  src: url('../../assets/fonts/Kanit-SemiBold.ttf') format('woff');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Kanit';
+  src: url('../../assets/fonts/Kanit-Bold.ttf') format('woff');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Kanit';
+  src: url('../../assets/fonts/Kanit-ExtraBold.ttf') format('woff');
+  font-weight: 800;
 }
 
 body,

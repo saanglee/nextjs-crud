@@ -12,9 +12,9 @@ import styles from './MobileHeader.module.scss';
 
 const cx = classNames.bind(styles);
 const iconStyle = {
-  fontSize: 24,
-  paddingRight: 10,
-  paddingLeft: 10,
+  fontSize: 16,
+  paddingRight: 5,
+  paddingLeft: 5,
 };
 
 const MobileHeader = () => {
@@ -44,13 +44,13 @@ const MobileHeader = () => {
               <span>님</span>
             </div>
             <button className={cx('auth-btn')} onClick={handleLogoutClick}>
-              <span className="auth-btn__text">LOG OUT</span>
+              <span className="auth-btn__text">LOGOUT</span>
               <LoginOutlined style={iconStyle} />
             </button>
           </>
         ) : (
           <button className={cx('auth-btn')} onClick={() => router.push('/login')}>
-            <span className="auth-btn__text">LOG IN</span>
+            <span className="auth-btn__text">LOGIN</span>
             <LoginOutlined style={iconStyle} />
           </button>
         )}

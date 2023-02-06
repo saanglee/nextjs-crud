@@ -19,11 +19,11 @@ const PostEditForm = ({ submitHandler, inputChangeHandler, handleQuitEdit, conte
     <Card date={contents.date}>
       <form className={classes.form} onSubmit={submitHandler}>
         <div className={classes.control}>
-          <label htmlFor="title">Post Title</label>
+          <label htmlFor="title">제목</label>
           <input name="title" value={contents.title} type="text" required onChange={inputChangeHandler} id="title" />
         </div>
         <div className={classes.control}>
-          <label htmlFor="image">Post Image</label>
+          <label htmlFor="image">이미지 URL</label>
           <input name="image" value={contents.image} type="url" onChange={inputChangeHandler} id="image" />
         </div>
         <div className={classes.control}>
@@ -31,7 +31,7 @@ const PostEditForm = ({ submitHandler, inputChangeHandler, handleQuitEdit, conte
           <input name="date" value={contents.date} type="date" required onChange={inputChangeHandler} id="date" />
         </div>
         <div className={classes.control}>
-          <label htmlFor="address">Address</label>
+          <label htmlFor="address">주소</label>
           <input
             name="address"
             value={contents.address}
@@ -42,7 +42,7 @@ const PostEditForm = ({ submitHandler, inputChangeHandler, handleQuitEdit, conte
           />
         </div>
         <div className={classes.control}>
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description">내용</label>
           <textarea
             name="description"
             value={contents.description}
@@ -65,12 +65,13 @@ const PostEditForm = ({ submitHandler, inputChangeHandler, handleQuitEdit, conte
 
         <div className={classes.control}>
           <label htmlFor="image">Post Image</label>
-          <Upload action="/upload.do" listType="picture-card">
+          {/* TODO 추가예정 */}
+          {/* <Upload action="/upload.do" listType="picture-card">
             <div>
               <PlusOutlined />
               <div style={{ marginTop: 8 }}>Upload</div>
             </div>
-          </Upload>
+          </Upload> */}
         </div>
       </form>
     </Card>

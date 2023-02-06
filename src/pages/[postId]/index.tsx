@@ -6,16 +6,6 @@ import { collection, getDocs, query, where } from 'firebase/firestore/lite';
 import { GetServerSidePropsContext } from 'next';
 import nookies from 'nookies';
 
-interface PostDetail {
-  title: string;
-  address: string;
-  image?: string;
-  description: string;
-  id: string;
-  collectionId: string;
-  date: any;
-}
-
 const PostDetails = ({ selectedItem }: any) => {
   if (selectedItem) {
     const { title, address, image, description, id, collectionId, date } = selectedItem[0];
@@ -58,7 +48,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
         description: doc.data().description,
       };
     });
-    console.log('------ selectedItem: ', selectedItem);
+
     return {
       props: { selectedItem },
     };

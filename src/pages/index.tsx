@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { GetServerSidePropsContext } from 'next';
 import Card from 'components/shared/Card';
 import PostList from 'components/posts/PostList';
-import { useAuth } from 'store/authProvider';
+import { useAuth } from 'context/authProvider';
 
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { db } from '../firebase/firebaseClient';
@@ -45,8 +45,22 @@ const HomePage = ({ posts }: Posts) => {
 };
 
 export const getServerSideProps = async (context: GetServerSidePropsContext): Promise<{ props: {} }> => {
+  const cookies = nookies.get(context);
+  // if (!cookies.token) {
+  //   console.log('토큰 없음');
+  //   context.res.setHeader('location', '/login');
+  //   context.res.statusCode = 302;
+  //   context.res.end();
+  // return {
+  //   redirect: {
+  //     destinaton: '',
+  //     permanent: false,
+  //   },
+  // };
+  // }
+
   try {
-    const cookies = nookies.get(context);
+    // console.log('Homepage - context: \n', context);
     const token = await admin.auth().verifyIdToken(cookies.token);
     const { uid } = token;
     const querySnapshot = await getDocs(collection(db, uid));
@@ -66,9 +80,16 @@ export const getServerSideProps = async (context: GetServerSidePropsContext): Pr
       props: { posts: userPosts },
     };
   } catch (error) {
+    context.res.setHeader('Location', '/login');
+    context.res.writeHead(302, { Location: '/login' });
     console.log('❗️ HomePage - getServerSideProps error: ', error);
+    context.res.end();
     return {
       props: {} as never,
+      // redirect: {
+      //   permanent: false,
+      //   destination: '/login',
+      // },
     };
   }
 };

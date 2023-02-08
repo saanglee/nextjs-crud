@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import LoginForm from 'components/auth/LoginForm';
-import { useAuth } from 'store/authProvider';
+import { useAuth } from 'context/authProvider';
 import Head from 'next/head';
 
 const LoginPage = () => {

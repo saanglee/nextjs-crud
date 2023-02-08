@@ -10,30 +10,28 @@ export const AuthProvider = ({ children }: any) => {
   const [userState, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    return getAuth().onIdTokenChanged(async (user1) => {
-      console.log(`token changed!`);
-      if (!user1) {
-        console.log(`no token found...`);
+    return getAuth().onIdTokenChanged(async (user) => {
+      if (!user) {
+        // ID토큰 없음
         setUser(null);
         nookies.set(null, 'token', '', { path: '/' });
         return;
       }
 
-      console.log(`updating token...`, user1);
-      setUser(user1);
-      const token = await user1.getIdToken();
+      setUser(user);
+      const token = await user.getIdToken();
       nookies.destroy(null, 'token');
       nookies.set(null, 'token', token, { path: '/' });
     });
   }, []);
 
   useEffect(() => {
-    const handler = setInterval(async () => {
+    const refreshToken = setInterval(async () => {
       const { currentUser } = getAuth();
       if (currentUser) await currentUser.getIdToken(true);
     }, 10 * 60 * 1000);
 
-    return () => clearInterval(handler);
+    return () => clearInterval(refreshToken);
   }, []);
 
   const user = useMemo(

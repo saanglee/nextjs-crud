@@ -1,7 +1,7 @@
 import SignupForm from 'components/auth/SignupForm';
 import React from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from 'store/authProvider';
+import { useAuth } from 'context/authProvider';
 
 const SignupPage = () => {
   const router = useRouter();

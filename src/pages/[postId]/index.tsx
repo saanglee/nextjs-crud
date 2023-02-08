@@ -28,7 +28,6 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   type params = { postId: string };
   try {
     const { postId } = context.params as params;
-    console.log(postId);
 
     const cookies = nookies.get(context);
     const token = await admin.auth().verifyIdToken(cookies.token);
@@ -53,9 +52,16 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
       props: { selectedItem },
     };
   } catch (error) {
-    console.log(error);
+    context.res.setHeader('Location', '/login');
+    context.res.writeHead(302, { Location: '/login' });
+    context.res.end();
+    console.log('❗️ [postId] - getServerSideProps error: ', error);
     return {
       props: {} as never,
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
     };
   }
 };

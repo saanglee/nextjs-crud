@@ -18,6 +18,7 @@ const LoginForm = () => {
     email: '',
     password: '',
   });
+
   const [signInWithEmailAndPassword, userCredential, loading, authError] = useSignInWithEmailAndPassword(auth);
   const [signInWithGoogle, googleUser, googleLoading, googleAuthError] = useSignInWithGoogle(auth);
 
@@ -27,6 +28,7 @@ const LoginForm = () => {
       [event.currentTarget.name]: event.currentTarget.value,
     });
   };
+
   const handleLoginSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     setPersistence(auth, browserSessionPersistence).then(() => {
@@ -36,7 +38,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (userCredential) {
-      router.push('/');
+      router.push('/', undefined, { shallow: true });
     }
     if (authError) console.log('LoginForm - error.message: ', authError.message);
     if (googleAuthError) console.log('LoginForm - error.message: ', googleAuthError.message);

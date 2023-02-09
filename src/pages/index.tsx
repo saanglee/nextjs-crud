@@ -45,22 +45,8 @@ const HomePage = ({ posts }: Posts) => {
 };
 
 export const getServerSideProps = async (context: GetServerSidePropsContext): Promise<{ props: {} }> => {
-  const cookies = nookies.get(context);
-  // if (!cookies.token) {
-  //   console.log('토큰 없음');
-  //   context.res.setHeader('location', '/login');
-  //   context.res.statusCode = 302;
-  //   context.res.end();
-  // return {
-  //   redirect: {
-  //     destinaton: '',
-  //     permanent: false,
-  //   },
-  // };
-  // }
-
   try {
-    // console.log('Homepage - context: \n', context);
+    const cookies = nookies.get(context);
     const token = await admin.auth().verifyIdToken(cookies.token);
     const { uid } = token;
     const querySnapshot = await getDocs(collection(db, uid));
@@ -80,16 +66,10 @@ export const getServerSideProps = async (context: GetServerSidePropsContext): Pr
       props: { posts: userPosts },
     };
   } catch (error) {
-    context.res.setHeader('Location', '/login');
     context.res.writeHead(302, { Location: '/login' });
-    console.log('❗️ HomePage - getServerSideProps error: ', error);
     context.res.end();
     return {
       props: {} as never,
-      // redirect: {
-      //   permanent: false,
-      //   destination: '/login',
-      // },
     };
   }
 };

@@ -7,18 +7,18 @@ const AuthContext = createContext<{ user: User | null }>({
 });
 
 export const AuthProvider = ({ children }: any) => {
-  const [userState, setUser] = useState<User | null>(null);
+  const [userState, setUserState] = useState<User | null>(null);
 
   useEffect(() => {
     return getAuth().onIdTokenChanged(async (user) => {
       if (!user) {
         // ID토큰 없음
-        setUser(null);
+        setUserState(null);
         nookies.set(null, 'token', '', { path: '/' });
         return;
       }
 
-      setUser(user);
+      setUserState(user);
       const token = await user.getIdToken();
       nookies.destroy(null, 'token');
       nookies.set(null, 'token', token, { path: '/' });

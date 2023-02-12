@@ -1,12 +1,10 @@
 import { FunctionComponent } from 'react';
-import { GetServerSidePropsContext } from 'next';
-import { AuthProvider, useAuth } from 'context/authProvider';
+import { AuthProvider } from 'context/authProvider';
 import Layout from '../components/layout';
 
 import '../styles/index.scss';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import nookies from 'nookies';
 
 interface AppProps {
   Component: FunctionComponent;
@@ -15,7 +13,6 @@ interface AppProps {
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
-  const user = useAuth();
   const pathName = router.asPath.replace('/', '');
 
   return (
@@ -35,16 +32,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </AuthProvider>
     </>
   );
-};
-
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const cookies = nookies.get(context);
-  if (!cookies.token) {
-    console.log('토큰 없음');
-    context.res.setHeader('location', '/login');
-    context.res.statusCode = 302;
-    context.res.end();
-  }
 };
 
 export default MyApp;

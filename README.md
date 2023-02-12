@@ -132,7 +132,9 @@ gif
 
 
 ### 반응형
-gif
+
+![반응형2](https://user-images.githubusercontent.com/92660097/218304080-a9b3c860-7ebb-467f-a585-1dd8feab5cf9.gif)
+
 
 
 # 로직
@@ -142,7 +144,7 @@ gif
 
 
 ## Next.js API
-<img width="729" alt="스크린샷 2023-02-12 오후 5 58 22" src="https://user-images.githubusercontent.com/92660097/218301953-ee1d6bca-8494-40f8-872b-cb5617bf94c2.png">
+<img width="780" alt="스크린샷 2023-02-12 오후 5 59 28" src="https://user-images.githubusercontent.com/92660097/218302402-619dd61d-a3cd-400f-b0ec-bf8425f9f709.png">
 
 
 

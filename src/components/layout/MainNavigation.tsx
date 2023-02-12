@@ -60,7 +60,7 @@ const MainNavigation = () => {
           <div className={cx('profile')}>
             <UserOutlined className="main-nav__icon" style={iconStyle} />
             <span className="profile__name">{user?.email?.split('@')[0]}</span>
-            <span>님</span>
+            <span className="profile__name">님</span>
           </div>
           <button className={cx('auth-btn')} onClick={handleLogoutClick}>
             <span className="auth-btn__text">LOG OUT</span>

@@ -13,7 +13,6 @@
     "antd": "^5.1.6",
     "classnames": "^2.3.2",
     "dashify": "^2.0.0",
-    "dayjs": "^1.11.5",
     "env-cmd": "^10.1.0",
     "eslint-plugin-disable": "^2.0.3",
     "firebase": "^9.15.0",

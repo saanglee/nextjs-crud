@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { GetServerSidePropsContext } from 'next';
 import Card from 'components/shared/Card';
 import PostList from 'components/posts/PostList';
-import { useAuth } from 'store/authProvider';
+import { useAuth } from 'context/authProvider';
 
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { db } from '../firebase/firebaseClient';
@@ -66,7 +66,8 @@ export const getServerSideProps = async (context: GetServerSidePropsContext): Pr
       props: { posts: userPosts },
     };
   } catch (error) {
-    console.log('❗️ HomePage - getServerSideProps error: ', error);
+    context.res.writeHead(302, { Location: '/login' });
+    context.res.end();
     return {
       props: {} as never,
     };

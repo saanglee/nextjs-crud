@@ -1,7 +1,7 @@
 import React from 'react';
 import NewPost, { PostForm } from '../../components/posts/NewPost';
 import { useRouter } from 'next/router';
-import { useAuth } from 'store/authProvider';
+import { useAuth } from 'context/authProvider';
 import Message from 'components/shared/Message';
 
 const NewPostPage = () => {

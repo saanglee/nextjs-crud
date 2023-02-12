@@ -6,16 +6,6 @@ import { collection, getDocs, query, where } from 'firebase/firestore/lite';
 import { GetServerSidePropsContext } from 'next';
 import nookies from 'nookies';
 
-interface PostDetail {
-  title: string;
-  address: string;
-  image?: string;
-  description: string;
-  id: string;
-  collectionId: string;
-  date: any;
-}
-
 const PostDetails = ({ selectedItem }: any) => {
   if (selectedItem) {
     const { title, address, image, description, id, collectionId, date } = selectedItem[0];
@@ -38,7 +28,6 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   type params = { postId: string };
   try {
     const { postId } = context.params as params;
-    console.log(postId);
 
     const cookies = nookies.get(context);
     const token = await admin.auth().verifyIdToken(cookies.token);
@@ -58,14 +47,21 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
         description: doc.data().description,
       };
     });
-    console.log('------ selectedItem: ', selectedItem);
+
     return {
       props: { selectedItem },
     };
   } catch (error) {
-    console.log(error);
+    context.res.setHeader('Location', '/login');
+    context.res.writeHead(302, { Location: '/login' });
+    context.res.end();
+    console.log('❗️ [postId] - getServerSideProps error: ', error);
     return {
       props: {} as never,
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
     };
   }
 };

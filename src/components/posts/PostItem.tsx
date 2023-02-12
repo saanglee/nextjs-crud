@@ -6,7 +6,7 @@ import { Post } from 'pages';
 
 import { db } from '../../firebase/firebaseClient';
 import { doc, deleteDoc } from 'firebase/firestore/lite';
-import { useAuth } from 'store/authProvider';
+import { useAuth } from 'context/authProvider';
 
 import classes from './PostItem.module.scss';
 import { DeleteOutlined } from '@ant-design/icons';

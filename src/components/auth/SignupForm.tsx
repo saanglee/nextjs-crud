@@ -38,7 +38,7 @@ const SignupForm = () => {
     router.push('/');
   }
   if (authError) {
-    console.log(authError);
+    console.log('authError ', authError);
   }
 
   return (
@@ -81,10 +81,12 @@ const SignupForm = () => {
               onChange={handleInputChange}
             />
           </div>
-          {error && <div className={classes.error_message}> {error} </div>}
-          <div className={classes.error_message}>
-            {FIREBASE_ERRORS[authError?.message as keyof typeof FIREBASE_ERRORS]}
-          </div>
+          {(error && <div className={classes.error_message}> {error} </div>) || (
+            <div className={classes.error_message}>
+              {FIREBASE_ERRORS[authError?.message as keyof typeof FIREBASE_ERRORS]}
+            </div>
+          )}
+
           {loading ? (
             <div className={classes.loading_message}>회원가입 진행 중...</div>
           ) : (

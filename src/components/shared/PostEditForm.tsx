@@ -64,7 +64,6 @@ const PostEditForm = ({ submitHandler, inputChangeHandler, handleQuitEdit, conte
         )}
 
         <div className={classes.control}>
-          <label htmlFor="image">Post Image</label>
           {/* TODO 추가예정 */}
           {/* <Upload action="/upload.do" listType="picture-card">
             <div>

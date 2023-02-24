@@ -1,15 +1,14 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { GetServerSidePropsContext } from 'next';
 import Card from 'components/shared/Card';
 import PostList from 'components/posts/PostList';
-import { useAuth } from 'context/authProvider';
 
 import { collection, getDocs } from 'firebase/firestore/lite';
-import { db } from '../firebase/firebaseClient';
+import { auth, db } from '../firebase/firebaseClient';
 import { admin } from '../firebase/firebaseAdmin';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 import nookies from 'nookies';
+import Message from 'components/shared/Message';
 
 export interface Post {
   collectionId: string;
@@ -26,12 +25,16 @@ export interface Posts {
 }
 
 const HomePage = ({ posts }: Posts) => {
-  const router = useRouter();
-  const { user } = useAuth();
+  const [user, loading] = useAuthState(auth);
 
-  useEffect(() => {
-    if (!user) router.replace('/login');
-  }, []);
+  if (loading) {
+    return <div>로딩 중...</div>;
+  }
+
+  if (!user)
+    return (
+      <Message messageTitle="로그인 이후에 이용하실 수 있습니다." buttonText="로그인 페이지로 가기 →" linkTo="/login" />
+    );
 
   if (!posts?.length)
     return (

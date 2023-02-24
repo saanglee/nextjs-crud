@@ -58,7 +58,7 @@ const MainNavigation = () => {
       {user ? (
         <>
           <div className={cx('profile')}>
-            <UserOutlined className="main-nav__icon" style={iconStyle} />
+            <UserOutlined className="main-nav__icon" style={{ fontSize: 22 }} />
             <span className="profile__name">{user?.email?.split('@')[0]}</span>
             <span className="profile__name">님</span>
           </div>

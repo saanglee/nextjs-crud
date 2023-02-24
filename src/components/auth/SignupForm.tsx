@@ -26,7 +26,7 @@ const SignupForm = () => {
       [event.currentTarget.name]: event.currentTarget.value,
     });
   };
-  const handleSignupSubmit = (event: React.FormEvent<HTMLFormElement>): void | Promise<UserCredential | undefined> => {
+  const handleSubmitSignup = (event: React.FormEvent<HTMLFormElement>): void | Promise<UserCredential | undefined> => {
     event.preventDefault();
     if (error) setError('');
     if (signupForm.password !== signupForm.confirmPassword) return setError('동일한 비밀번호를 입력해주세요.');
@@ -45,7 +45,7 @@ const SignupForm = () => {
     <div>
       <Card size="sm" date="SIGN UP">
         <h1 className={classes.login__title}> 회원가입 </h1>
-        <form className={classes.login__form} onSubmit={handleSignupSubmit}>
+        <form className={classes.login__form} onSubmit={handleSubmitSignup}>
           <div className={classes.control}>
             <label htmlFor="id">Email</label>
             <input
@@ -81,6 +81,7 @@ const SignupForm = () => {
               onChange={handleInputChange}
             />
           </div>
+
           {(error && <div className={classes.error_message}> {error} </div>) || (
             <div className={classes.error_message}>
               {FIREBASE_ERRORS[authError?.message as keyof typeof FIREBASE_ERRORS]}

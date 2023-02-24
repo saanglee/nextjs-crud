@@ -101,14 +101,88 @@ Next.js, Firebase를 이용하여 CRUD 기능이 있는 기본적인 어플리�
 ```
 
 
-# 로직
+# 구조
 
 ## Frontend & Firebase
 <img width="729" alt="스크린샷 2023-02-12 오후 5 58 22" src="https://user-images.githubusercontent.com/92660097/218301909-d0eabbbb-6d3b-4dbb-b526-0d1d99ff0817.png">
 
 
-## Next.js API
 
+### 회원가입 
+→ `createUserWithEmailAndPassword`함수에 입력받은 email과 password를 인자로 넣고, Firebase auth에 사용자 계정을 생성한다.
+```ts
+// SignupForm.tsx
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void | Promise<UserCredential | undefined> => {
+    event.preventDefault();
+    if (error) setError('');
+    if (signupForm.password !== signupForm.confirmPassword) return setError('동일한 비밀번호를 입력해주세요.');
+    return createUserWithEmailAndPassword(signupForm.email, signupForm.password);
+  };
+```
+
+### 로그인
+1. `signInWithEmailAndPassword`함수가 호출되면 `auth`에 로그인한 사용자 정보가 저장된다.
+```ts
+// LoginForm.tsx
+
+import { auth } from '../../firebase/firebaseClient';
+
+  ...
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault();
+    setPersistence(auth, browserSessionPersistence).then(() => {
+      return signInWithEmailAndPassword(loginForm.email, loginForm.password);
+    });
+  };
+```
+
+2. authProvider.tsx에서 firebaseClient auth 에 저장된 사용자 정보를 가져와 쿠키에 저장한다.
+
+```ts
+// authProvider.tsx 
+import { getAuth, User } from 'firebase/auth';
+import nookies from 'nookies';
+
+...
+
+export const AuthProvider = ({ children }: any) => {
+  ...
+
+  useEffect(() => {
+    // 로그인된 사용자(getAuth)의 ID토큰을 가져와서(onIdTokenChanged) 쿠키에 저장한다.
+    return getAuth().onIdTokenChanged(async (user) => { 
+      if (!user) {
+        setUserState(null);
+        nookies.set(null, 'token', '', { path: '/' });
+        return;
+      }
+
+      setUserState(user);
+      const token = await user.getIdToken();
+      nookies.destroy(null, 'token');
+      nookies.set(null, 'token', token, { path: '/' });
+    });
+  }, []);
+
+...
+
+```
+
+### 글 생성
+
+
+PostEditForm.tsx 에서 새로운 글 생성됨 → pages/new-post/index.tsx 의 addPostHandler를 통해 api/new-post 
+```ts
+
+```
+
+
+```ts
+
+```
+
+## Next.js API
 
 <img width="780" alt="스크린샷 2023-02-12 오후 5 59 28" src="https://user-images.githubusercontent.com/92660097/218302402-619dd61d-a3cd-400f-b0ec-bf8425f9f709.png">
 
@@ -129,8 +203,6 @@ Next.js, Firebase를 이용하여 CRUD 기능이 있는 기본적인 어플리�
   - 모바일, 태블릿, 데스크탑 화면 모두 대응
 
 
-# 사용 예
-
 ## 로그인, 회원가입
 
 회원가입 인증 에러 핸들링
@@ -141,7 +213,7 @@ Next.js, Firebase를 이용하여 CRUD 기능이 있는 기본적인 어플리�
 - 로그인 실패시 안내 메세지를 띄웁니다.
 ![로그인](https://user-images.githubusercontent.com/92660097/218301995-d8f86a2b-9dae-4cd1-b292-b1f1a485b16f.gif)
 
-src/firebase/errors.ts 파일에 에러 메세지 모듈화
+src/firebase/errors.ts 파일에 에러 메세지를 모듈화해두었습니다.
 ```ts
 export const FIREBASE_ERRORS = {
   'Firebase: Error (auth/email-already-in-use).': '이미 사용 중인 이메일입니다.',
@@ -152,7 +224,7 @@ export const FIREBASE_ERRORS = {
 };
 ```
 
-사용 예) `src/components/auth/SignupForm.tsx` 회원가입 오류 시 안내 메세지 노출 
+사용 예) `src/components/auth/SignupForm.tsx`에서 회원가입 중 오류가 있을 경우 안내 메세지를 노출합니다. 
 
 ```ts
   ...
@@ -164,7 +236,7 @@ export const FIREBASE_ERRORS = {
   event.preventDefault();
   if (error) setError(''); // error값 초기화
 
-  // 비밀번호 재입력 불일치 시에 error state값에 에러 메세지가 할당된다. 
+  // 비밀번호 재입력 불일치할 경우 error state값에 에러 메세지가 할당된다. 
   if (signupForm.password !== signupForm.confirmPassword) return setError('동일한 비밀번호를 입력해주세요.');
 
   return createUserWithEmailAndPassword(signupForm.email, signupForm.password); // 회원가입 함수 실행
@@ -178,8 +250,9 @@ export const FIREBASE_ERRORS = {
     {(error && <div className={classes.error_message}> {error} </div>) || (
 
       <div className={classes.error_message}>
-        {FIREBASE_ERRORS[authError?.message as keyof typeof FIREBASE_ERRORS]} // 👈 authError가 있을 경우 authError type에 해당하는 FIREBASE_ERRORS 값을 가져온다.
+        {FIREBASE_ERRORS[authError?.message as keyof typeof FIREBASE_ERRORS]} 
       </div>
+        // 👆 authError가 있을 경우 authError type에 해당하는 FIREBASE_ERRORS 값을 가져온다.
  
   )}  
     ...
@@ -187,20 +260,83 @@ export const FIREBASE_ERRORS = {
 ```
 
 
-## 로그아웃 상태에서 리다이렉트
+## 로그아웃
 
-gif
+![로그아웃](https://user-images.githubusercontent.com/92660097/221105147-00a1843d-0ff1-4195-8989-65b3947fb546.gif)
+
+```ts
+// MainNavigation.tsx
+
+import { signOut } from 'firebase/auth';
+
+...
+
+const MainNavigation = () => {
+
+  const handleLogoutClick = () => {
+    signOut(auth).then(() => {
+      alert('로그아웃합니다.');
+    });
+    router.push('/login');
+  };
+
+  ...
+
+  return (
+    <nav>
+      
+      ...
+
+      {user ? ( // 로그인 상태일 경우에 로그아웃 버튼이 노출된다.
+        <>
+          <div className={cx('profile')}>
+            <span className="profile__name">{user?.email?.split('@')[0]}</span> // 사용자 이름
+            <span className="profile__name">님</span>
+          </div>
+          <button className={cx('auth-btn')} onClick={handleLogoutClick}> // 로그아웃 버튼
+            <span className="auth-btn__text">LOG OUT</span>
+            <LoginOutlined style={{ fontSize: 24 }} />
+          </button>
+        </>
+      ) : (
+        <button className={cx('auth-btn')} onClick={() => router.push('/login')}> // 로그아웃 상태일 경우 
+          <span className="auth-btn__text">LOG IN</span> // 로그인 버튼이 노출된다.
+          <LoginOutlined style={{ fontSize: 24 }} />
+        </button>
+      )}
+
+      ...
+
+    </nav>
+  )
+
+}
+```
 
 
-### 글 생성, 수정, 삭제
+## 글 생성, 수정, 삭제
+
+생성
 
 ![글작성 수정](https://user-images.githubusercontent.com/92660097/218302016-4182b128-7eb3-491d-b836-ab0350cb6344.gif)
+
+수정
+
+![수정2](https://user-images.githubusercontent.com/92660097/221109866-1810de0f-4b37-447b-a896-000f8ab111f3.gif)
+
+
+삭제
 
 ![삭제](https://user-images.githubusercontent.com/92660097/218302032-8ad940bb-0b6b-416b-b4cd-52c365975ef3.gif)
 
 
-### 반응형
+```ts
 
+```
+
+
+## 반응형
+(용량 문제로 화질이 좋지 않은 점 양해바랍니다.)
 ![반응형2](https://user-images.githubusercontent.com/92660097/218304080-a9b3c860-7ebb-467f-a585-1dd8feab5cf9.gif)
 
 

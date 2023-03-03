@@ -10,6 +10,7 @@ import { useAuth } from 'context/authProvider';
 
 import classes from './PostItem.module.scss';
 import { DeleteOutlined } from '@ant-design/icons';
+import React from 'react';
 
 const PostItem = ({ collectionId, id, date, image, title, address }: Post) => {
   const router = useRouter();
@@ -60,4 +61,4 @@ const PostItem = ({ collectionId, id, date, image, title, address }: Post) => {
   );
 };
 
-export default PostItem;
+export default React.memo(PostItem);

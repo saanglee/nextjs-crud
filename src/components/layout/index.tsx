@@ -1,5 +1,5 @@
 import MainNavigation from './MainNavigation';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import MobileHeader from './MobileHeader';
 import classNames from 'classnames/bind';
 import styles from './index.module.scss';
@@ -22,4 +22,5 @@ const Layout = ({ children }: DefaultLayoutProps) => {
   );
 };
 
-export default Layout;
+// export default Layout;
+export default React.memo(Layout);

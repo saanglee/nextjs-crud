@@ -37,7 +37,6 @@ const PostDetail = ({ collectionId, id, date, image, title, address, description
   };
 
   const toggleIsEdit = () => setIsEdit(!isEdit);
-  const handleQuitEdit = () => setIsEdit(false);
 
   const updatePostHandler = async (updatedPostData: Post): Promise<any> => {
     try {
@@ -76,7 +75,7 @@ const PostDetail = ({ collectionId, id, date, image, title, address, description
             submitHandler={handleUpdatedPostSubmit}
             inputChangeHandler={handleInputChange}
             contents={localContent}
-            handleQuitEdit={handleQuitEdit}
+            handleQuitEdit={() => setIsEdit(false)}
             isEdit
           />
         </div>

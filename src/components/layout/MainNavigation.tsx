@@ -1,3 +1,4 @@
+import React, { useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -20,12 +21,12 @@ const MainNavigation = () => {
   const router = useRouter();
   const [user] = useIdToken(auth);
 
-  const handleLogoutClick = () => {
+  const handleLogoutClick = useCallback(() => {
     signOut(auth).then(() => {
       alert('로그아웃합니다.');
     });
     router.push('/login');
-  };
+  }, [user]);
 
   return (
     <nav className={cx('main-nav')}>
@@ -77,4 +78,5 @@ const MainNavigation = () => {
   );
 };
 
-export default MainNavigation;
+// export default MainNavigation;
+export default React.memo(MainNavigation);

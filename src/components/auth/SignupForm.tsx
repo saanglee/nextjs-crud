@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Card from 'components/shared/Card';
 import Button from 'components/shared/Button';
-import classes from './index.module.scss';
 import { useRouter } from 'next/router';
 import { auth } from '../../firebase/firebaseClient';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { FIREBASE_ERRORS } from '../../firebase/errors';
 import { UserCredential } from 'firebase/auth';
+
+import classes from './index.module.scss';
 
 const SignupForm = () => {
   const router = useRouter();
@@ -26,7 +27,7 @@ const SignupForm = () => {
       [event.currentTarget.name]: event.currentTarget.value,
     });
   };
-  const handleSubmitSignup = (event: React.FormEvent<HTMLFormElement>): void | Promise<UserCredential | undefined> => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void | Promise<UserCredential | undefined> => {
     event.preventDefault();
     if (error) setError('');
     if (signupForm.password !== signupForm.confirmPassword) return setError('동일한 비밀번호를 입력해주세요.');
@@ -45,7 +46,7 @@ const SignupForm = () => {
     <div>
       <Card size="sm" date="SIGN UP">
         <h1 className={classes.login__title}> 회원가입 </h1>
-        <form className={classes.login__form} onSubmit={handleSubmitSignup}>
+        <form className={classes.login__form} onSubmit={handleSubmit}>
           <div className={classes.control}>
             <label htmlFor="id">Email</label>
             <input

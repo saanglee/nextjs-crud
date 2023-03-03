@@ -2,15 +2,12 @@ import React from 'react';
 import Card from 'components/shared/Card';
 import classes from './PostEditForm.module.scss';
 import Button from './Button';
-import { Upload } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 
 interface FormProps {
-  submitHandler: any;
-  inputChangeHandler: any;
-  handleQuitEdit?: any;
+  submitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
+  inputChangeHandler: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   contents: any;
-
+  handleQuitEdit?: React.Dispatch<React.SetStateAction<boolean>>;
   isEdit?: boolean;
 }
 
@@ -54,7 +51,7 @@ const PostEditForm = ({ submitHandler, inputChangeHandler, handleQuitEdit, conte
         </div>
         {isEdit ? (
           <div className={classes.actions__edit}>
-            <Button size="lg" onClick={handleQuitEdit} text="취소" />
+            <Button size="lg" onClick={() => handleQuitEdit} text="취소" />
             <Button size="lg" type="submit" text="완료" />
           </div>
         ) : (
@@ -77,4 +74,5 @@ const PostEditForm = ({ submitHandler, inputChangeHandler, handleQuitEdit, conte
   );
 };
 
-export default PostEditForm;
+// export default PostEditForm;
+export default React.memo(PostEditForm);

@@ -20,7 +20,7 @@ const LoginForm = () => {
   });
 
   const [signInWithEmailAndPassword, userCredential, loading, authError] = useSignInWithEmailAndPassword(auth);
-  const [signInWithGoogle, googleUser, googleLoading, googleAuthError] = useSignInWithGoogle(auth);
+  const [signInWithGoogle, _, googleLoading, googleAuthError] = useSignInWithGoogle(auth);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm({
@@ -29,7 +29,7 @@ const LoginForm = () => {
     });
   };
 
-  const handleLoginSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     setPersistence(auth, browserSessionPersistence).then(() => {
       return signInWithEmailAndPassword(loginForm.email, loginForm.password);
@@ -41,14 +41,15 @@ const LoginForm = () => {
       router.push('/', undefined, { shallow: true });
     }
     if (authError) console.log('LoginForm - error.message: ', authError.message);
+
     if (googleAuthError) console.log('LoginForm - error.message: ', googleAuthError.message);
-  }, [handleLoginSubmit]);
+  }, [handleSubmit]);
 
   return (
     <div>
       <Card size="sm" date="LOG IN">
         <h1 className={classes.login__title}> 로그인 </h1>
-        <form className={classes.login__form} onSubmit={handleLoginSubmit}>
+        <form className={classes.login__form} onSubmit={handleSubmit}>
           <div className={classes.control}>
             <label htmlFor="id">Email</label>
             <input name="email" type="email" placeholder="이메일" required onChange={handleInputChange} id="email" />
